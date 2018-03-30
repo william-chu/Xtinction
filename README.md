@@ -17,6 +17,8 @@
 * To view project code, _clone repository from_ https://github.com/william-chu/projectname
 * To view project, _open in web browser_ http://william-chu.github.io/projectname
 
+## Known Bugs
+
 ## Technologies Used
 
 * HTML
