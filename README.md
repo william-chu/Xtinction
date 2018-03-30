@@ -6,6 +6,12 @@
 
 [Enter description]
 
+## Specifications
+
+| Specification | Input | Output
+| --- | --- | --- |
+| | | |
+
 ## Setup/Installation Requirements
 
 * To view project code, _clone repository from_ https://github.com/william-chu/projectname
