@@ -8,9 +8,9 @@
 
 ## Specifications
 
-| Specification | Input | Output
+| Specification | Input | Output |
 | --- | --- | --- |
-| | | |
+| Description | Input =  | Output = |
 
 ## Setup/Installation Requirements
 
