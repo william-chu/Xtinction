@@ -29,4 +29,4 @@
 
 * GPL
 
-Copyright (c) 2018 **_William Chu_**
+William Chu © 2018
