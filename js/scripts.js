@@ -65,9 +65,9 @@ Board.prototype.isValid = function () {
   return tempBoard.match();
 };
 
-var gameBoard = new Board();
-gameBoard.isValid();
-console.log(gameBoard.match());
+// var gameBoard = new Board();
+// gameBoard.isValid();
+// // console.log(gameBoard.match());
 
 // User Interface Logic
 $(document).ready(function(){
