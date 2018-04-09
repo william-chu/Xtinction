@@ -46,12 +46,9 @@ Board.prototype.isValid = function () {
     }
   }
   console.log(tempBoard);
-  // tempBoard.swapGems();
-  tempBoard.match();
+  tempBoard.swapGems(gem1,gem2);
+  return tempBoard.match();
 };
-
-
-
 
 var gameBoard = new Board();
 gameBoard.isValid();
