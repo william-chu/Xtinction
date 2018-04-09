@@ -40,9 +40,9 @@ Board.prototype.match = function () {
 };
 
 Board.prototype.isValid = function () {
-  var columnBoard = Object.assign({}, this);
-  console.log(columnBoard);
-  // columnBoard.swapGems();
+  var tempBoard = Object.assign({}, this);
+  console.log(tempBoard);
+  // tempBoard.swapGems();
   this.match();
 };
 
