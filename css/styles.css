@@ -16,5 +16,9 @@ img {
 }
 
 .highlight {
-  border: 1px solid red;
+  border: 2px solid red;
+}
+
+.highlight2  {
+  border: 2px solid yellow;
 }

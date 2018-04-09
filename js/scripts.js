@@ -86,19 +86,26 @@ function drawBoard(board) {
   }
 }
 
-var gemSwap1;
-var gemSwap2;
+
 
 function selectGem (board){
-  $('.cell').click(function() {
+  var gemSwap1;
+  var gemSwap2;
+  $('.cell').click(function(event) {
     var userClick = $(this).attr('id');
     var gemCoords = userClick.split('-');
     var xCoord = parseInt(gemCoords[0]);
     var yCoord = parseInt(gemCoords[1]);
     gemSwap1 = board.board[xCoord][yCoord];
-    console.log(gemSwap1);
-    // $(this).removeClass('highlight');
+
+
+    console.log(userClick);
     // $(this).addClass('highlight');
+    $("[id="+ xCoord + "-" + (yCoord - 1) + "]").addClass('highlight2');
+    $("[id="+ xCoord + "-" + (yCoord + 1) + "]").addClass('highlight2');
+    $("[id="+ (xCoord + 1) + "-" + yCoord + "]").addClass('highlight2');
+    $("[id="+ (xCoord - 1) + "-" + yCoord + "]").addClass('highlight2');
+    console.log($("[id$="+ yCoord +"]"));
   });
 }
 
