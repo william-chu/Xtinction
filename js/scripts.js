@@ -110,7 +110,7 @@ function drawBoard(board) {
   for (var i = 0; i < board.board.length; i++) {
     for (var j = 0; j < board.board.length; j++) {
       var cellID = '#' + i + '-' + j;
-      console.log(board.board[i][j].type);
+      // console.log(board.board[i][j].type);
       if (board.board[i][j].type === 'blue') {
         $(cellID).empty().append('<img src="img/blue.png">');
        } else if (board.board[i][j].type === 'red') {
@@ -120,8 +120,33 @@ function drawBoard(board) {
   }
 }
 
+
+
+function selectGem (board){
+  var gemSwap1;
+  var gemSwap2;
+  $('.cell').click(function(event) {
+    var userClick = $(this).attr('id');
+    var gemCoords = userClick.split('-');
+    var xCoord = parseInt(gemCoords[0]);
+    var yCoord = parseInt(gemCoords[1]);
+    gemSwap1 = board.board[xCoord][yCoord];
+
+
+    console.log(userClick);
+    // $(this).addClass('highlight');
+    $("[id="+ xCoord + "-" + (yCoord - 1) + "]").addClass('highlight2');
+    $("[id="+ xCoord + "-" + (yCoord + 1) + "]").addClass('highlight2');
+    $("[id="+ (xCoord + 1) + "-" + yCoord + "]").addClass('highlight2');
+    $("[id="+ (xCoord - 1) + "-" + yCoord + "]").addClass('highlight2');
+    console.log($("[id$="+ yCoord +"]"));
+  });
+}
+
 $(document).ready(function(){
   var newBoard = new Board();
+
+
   // var gemSwap1 = new Gem ("red");
   // var gemSwap2 = new Gem ("blue");
   // gemSwap1.col = 0;
@@ -129,5 +154,6 @@ $(document).ready(function(){
   // gemSwap1.row = 0;
   // gemSwap2.row = 1;
   drawBoard(newBoard);
+  selectGem(newBoard);
   // board.swapGems(gemSwap1, gemSwap2);
 });
