@@ -16,22 +16,18 @@ function Board() {
 Board.prototype.genGem = function () {
 };
 
-Board.prototype.swapGems = function (board, gem1, gem2) {
-  console.log(board);
-  var newBoard = board.board.slice();
-  var gem1col = gem1.col;
-  var gem1row = gem1.row ;
-  var gem2col = gem2.col;
-  var gem2row = gem2.row;
-  gem1.col = gem1col;
-  gem1.row = gem1row;
-  gem2.col = gem2col;
-  gem2.row = gem2row;
-  newBoard[gem1col][gem1row] = gem2;
-  newBoard[gem2col][gem2row] = gem1;
-  console.log(board);
-  console.log(newBoard);
-  return newBoard;
+Board.prototype.swapGems = function (gemInput1, gemInput2) {
+  var gem1col = gemInput1.col;
+  var gem1row = gemInput1.row;
+  var gem2col = gemInput2.col;
+  var gem2row = gemInput2.row;
+  gemInput1.col = gem2col;
+  gemInput1.row = gem2row;
+  gemInput2.col = gem1col;
+  gemInput2.row = gem1row;
+  this.board[gem1col][gem1row] = gemInput2;
+  this.board[gem2col][gem2row] = gemInput1;
+  console.log(this.board);
 };
 
 // User Interface Logic
@@ -43,5 +39,5 @@ $(document).ready(function(){
   gemSwap2.col = 0;
   gemSwap1.row = 0;
   gemSwap2.row = 1;
-  board.swapGems(board, gemSwap1, gemSwap2);
+  board.swapGems(gemSwap1, gemSwap2);
 });
