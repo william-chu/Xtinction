@@ -32,7 +32,7 @@ Board.prototype.swapGems = function (gemInput1, gemInput2) {
   gemInput2.row = gem1row;
   this.board[gem1col][gem1row] = gemInput2;
   this.board[gem2col][gem2row] = gemInput1;
-  console.log(this.board);
+  // console.log(this.board);
 };
 
 Board.prototype.match = function () {
@@ -65,18 +65,35 @@ Board.prototype.isValid = function () {
   return tempBoard.match();
 };
 
-var gameBoard = new Board();
-gameBoard.isValid();
-console.log(gameBoard.match());
+// var gameBoard = new Board();
+// gameBoard.isValid();
+// // console.log(gameBoard.match());
 
 // User Interface Logic
+
+function drawBoard(board) {
+  // debugger;
+  for (var i = 0; i < board.board.length; i++) {
+    for (var j = 0; j < board.board.length; j++) {
+      var cellID = '#' + i + '-' + j;
+      console.log(board.board[i][j].type);
+      if (board.board[i][j].type === 'blue') {
+        $(cellID).empty().append('<img src="img/blue.png">');
+       } else if (board.board[i][j].type === 'red') {
+        $(cellID).empty().append('<img src="img/red.png">')
+      }
+    }
+  }
+}
+
 $(document).ready(function(){
-  var board = new Board();
-  var gemSwap1 = new Gem ("red");
-  var gemSwap2 = new Gem ("blue");
-  gemSwap1.col = 0;
-  gemSwap2.col = 0;
-  gemSwap1.row = 0;
-  gemSwap2.row = 1;
-  board.swapGems(gemSwap1, gemSwap2);
+  var newBoard = new Board();
+  // var gemSwap1 = new Gem ("red");
+  // var gemSwap2 = new Gem ("blue");
+  // gemSwap1.col = 0;
+  // gemSwap2.col = 0;
+  // gemSwap1.row = 0;
+  // gemSwap2.row = 1;
+  drawBoard(newBoard);
+  // board.swapGems(gemSwap1, gemSwap2);
 });
