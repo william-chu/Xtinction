@@ -13,7 +13,7 @@ function Board() {
   //   this.board.push([]);
   // }
   // return this.board;
-  this.board = [[gem1, gem2, gem1], [gem1, gem1, gem2], [gem2, gem2, gem1]];
+  this.board = [[gem1, gem2, gem1], [gem2, gem1, gem2], [gem1, gem2, gem1]];
 }
 
 Board.prototype.genGem = function () {
@@ -38,13 +38,18 @@ Board.prototype.match = function () {
   }
   return false;
 };
-
 Board.prototype.isValid = function () {
-  var tempBoard = Object.assign({}, this);
+  var tempBoard = new Board();
+  for (var i = 0; i < this.board.length; i++) {
+    for (var j = 0; j < this.board.length; j++) {
+      tempBoard.board[i][j] = this.board[i][j];
+    }
+  }
   console.log(tempBoard);
   // tempBoard.swapGems();
-  this.match();
+  tempBoard.match();
 };
+
 
 
 
