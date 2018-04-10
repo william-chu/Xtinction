@@ -5,9 +5,8 @@ function Gem(type){
   this.col;
   this.row;
 }
-var matchRow;
-var matchCol;
-var direction;
+var matchRow=[];
+var matchCol=[];
 var gem1 = new Gem ("red");
 var gem2 = new Gem ("blue");
 
@@ -37,33 +36,78 @@ Board.prototype.swapGems = function (gemInput1, gemInput2) {
   this.board[gem2col][gem2row] = gemInput1;
   // console.log(this.board);
 };
-
+Board.prototype.conditionA = function (i, j) {
+  if (this.board[i][j] === this.board[i - 1][j] && this.board[i][j] === this.board[i - 2][j]) {
+    return true;
+  }else {
+    return false;
+  }
+};
+Board.prototype.conditionB = function (i, j) {
+  if (this.board[i][j] === this.board[i - 1][j] && this.board[i][j] === this.board[i + 1][j]) {
+    return true;
+  }else {
+    return false;
+  }
+};
+Board.prototype.conditionC = function (i, j) {
+  if (this.board[i][j] === this.board[i + 1][j] && this.board[i][j] === this.board[i + 2][j]) {
+    return true;
+  }else {
+    return false;
+  }
+};
 Board.prototype.match = function () {
   var start = this.board.length-1;
+  rowCount = 1;
+  colCount = 1;
   for (var i = start; i >= 0; i--) {
     for (var j = start; j >= 0; j--) {
-      var column = this.board[i];
-      if (i > 1) {
-        var column1 = this.board[i - 1];
-        var column2 = this.board[i - 2];
-        // evaluating rows
-        if (column[j] === column1[j] && column[j] === column2[j]) {
-          matchRow = j;
-          matchCol = i;
-          direction = "row";
-          return true;
+
+      if (i > 1 && i<start-1) {
+
+        if (this.conditionA(i, j) || this.conditionB(i, j) || this.conditionC(i, j)){
+          matchRow.push(j);
+          matchCol.push(i);
         }
       }
+      if (i = 1) {
+
+        if (this.conditionB(i, j) || this.conditionC(i, j)){
+          matchRow.push(j);
+          matchCol.push(i);
+        }
+      }
+      if (i = 0) {
+
+        if (this.conditionC(i, j)){
+          matchRow.push(j);
+          matchCol.push(i);
+        }
+      }
+      if (i = start - 1) {
+
+        if (this.conditionA(i, j) || this.conditionB(i, j)){
+          matchRow.push(j);
+          matchCol.push(i);
+        }
+      }
+      if (i = start) {
+        if (this.conditionA(i, j)){
+          matchRow.push(j);
+          matchCol.push(i);
+        }
+      }
+        // evaluating rows
+
       // evaluating columns
-      if (column[j] === column[j - 1] && column[j] === column[j - 2] ) {
-        matchRow = j;
-        matchCol = i;
-        direction = "col";
-        return true;
+      if (this.board[i][j] === this.board[i][j - 1] && this.board[i][j] === this.board[i][j - 2] ) {
+        matchRow.push(j);
+        matchCol.push(i);
+        colCount += 1;
       }
     }
   }
-  return false;
 };
 
 Board.prototype.isValid = function () {
