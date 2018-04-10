@@ -8,6 +8,20 @@ function Gem(type){
 var matches;
 var gem1 = new Gem ("red");
 var gem2 = new Gem ("blue");
+var gem3 = new Gem ("red");
+var gem4 = new Gem ("blue");
+var gem5 = new Gem ("blue");
+var gem6 = new Gem ("red");
+var gem7 = new Gem ("blue");
+var gem8 = new Gem ("red");
+var gem9 = new Gem ("red");
+var gem10 = new Gem ("blue");
+var gem11 = new Gem ("red");
+var gem12 = new Gem ("blue");
+var gem13 = new Gem ("blue");
+var gem14 = new Gem ("red");
+var gem15 = new Gem ("blue");
+var gem16 = new Gem ("red");
 
 function Board() {
   // this.board= []
@@ -16,7 +30,7 @@ function Board() {
   //   console.log(this.board);
   // }
   // return this.board;
-  this.board = [[gem1, gem2, gem1, gem2], [gem2, gem1, gem2, gem1], [gem1, gem2, gem1, gem2], [gem2, gem1, gem2, gem1]];
+  this.board = [[gem1, gem2, gem3, gem4], [gem5, gem6, gem7, gem8], [gem9, gem10, gem11, gem12], [gem13, gem14, gem15, gem16]];
 }
 
 Board.prototype.genGem = function(max) {
@@ -243,12 +257,10 @@ function selectGem(board) {
       board.board[xCoord][yCoord].col = xCoord;
       board.board[xCoord][yCoord].row = yCoord;
       gemSwap2 = board.board[xCoord][yCoord];
-      console.log(board.isValid(gemSwap1, gemSwap2));
+      // console.log(board.isValid(gemSwap1, gemSwap2));
       if (board.isValid(gemSwap1, gemSwap2)) {
-
+        debugger;
         board.swapGems(gemSwap1, gemSwap2);
-        // console.log(gemSwap1);
-        // console.log(gemSwap2);
         drawBoard(board);
         gemSwap1 = null;
         $(".cell").removeClass("highlight");
