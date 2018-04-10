@@ -1,6 +1,6 @@
 # **Fake-Bejeweled**
 
-#### By William Chu, Cory West-Forbes, Kristen Chellis, Adriana Chen, Brea Borlas
+#### By William Chu, Cory West-Forbes, Kristen Chellis, Brea Borlas
 
 ## Description
 
@@ -35,5 +35,5 @@ A clone of bejeweled, the popular game.
 
 * GPL
 
-William Chu, Cory West-Forbes, Kristen Chellis, Adriana Chen, Brea Borlas
+William Chu, Cory West-Forbes, Kristen Chellis, Brea Borlas
  © 2018

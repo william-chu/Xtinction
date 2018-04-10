@@ -5,7 +5,7 @@ function Gem(type){
   this.col;
   this.row;
 }
-var matches=[];
+var matches = new Set();
 var gem1 = new Gem ("red");
 var gem2 = new Gem ("blue");
 
@@ -15,7 +15,7 @@ function Board() {
   //   this.board.push([]);
   // }
   // return this.board;
-  this.board = [[gem1, gem2, gem1], [gem2, gem1, gem2], [gem1, gem2, gem1]];
+  this.board = [[gem1, gem2, gem1, gem2], [gem2, gem1, gem2, gem1], [gem1, gem2, gem1, gem2], [gem2, gem1, gem2, gem1]];
 }
 
 Board.prototype.genGem = function () {
@@ -64,37 +64,37 @@ Board.prototype.match = function () {
       if (i > 1 && i<start-1) {
 
         if (this.conditionA(i, j) || this.conditionB(i, j) || this.conditionC(i, j)){
-          matches.push(j + "," + i);
+          matches.add(j + "," + i);
         }
       }
       if (i = 1) {
 
         if (this.conditionB(i, j) || this.conditionC(i, j)){
-          matches.push(j + "," + i);
+          matches.add(j + "," + i);
         }
       }
       if (i = 0) {
 
         if (this.conditionC(i, j)){
-          matches.push(j + "," + i);
+          matches.add(j + "," + i);
         }
       }
       if (i = start - 1) {
 
         if (this.conditionA(i, j) || this.conditionB(i, j)){
-          matches.push(j + "," + i);
+          matches.add(j + "," + i);
         }
       }
       if (i = start) {
         if (this.conditionA(i, j)){
-          matches.push(j + "," + i);
+          matches.add(j + "," + i);
         }
       }
         // evaluating rows
 
       // evaluating columns
       if (this.board[i][j] === this.board[i][j - 1] && this.board[i][j] === this.board[i][j - 2] || this.board[i][j] === this.board[i][j - 1] && this.board[i][j] === this.board[i][j + 1] || this.board[i][j] === this.board[i][j + 1] && this.board[i][j] === this.board[i][j + 2]) {
-        matches.push(j + "," + i);
+        matches.add(j + "," + i);
         colCount += 1;
       }
     }
