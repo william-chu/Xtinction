@@ -5,7 +5,7 @@ function Gem(type){
   this.col;
   this.row;
 }
-var matches = new Set();
+var matches;
 var gem1 = new Gem ("red");
 var gem2 = new Gem ("blue");
 
@@ -15,13 +15,26 @@ function Board() {
   //   this.board.push([]);
   // }
   // return this.board;
-  this.board = [[gem1, gem2, gem1, gem2], [gem2, gem1, gem2, gem1], [gem1, gem2, gem1, gem2], [gem2, gem1, gem2, gem1]];
+  this.board = [[gem1, gem1, gem1, gem2], [gem2, gem1, gem2, gem1], [gem1, gem2, gem1, gem2], [gem2, gem2, gem2, gem1]];
 }
 
-Board.prototype.genGem = function () {
-  // Math.floor(Math.random()*3);
+Board.prototype.genGem = function (max) {
+  var gem;
+  for (var i = 0; i < this.board.length; i++) {
+    for (var j = this.board[i].length; j < this.board.length; j++) {
+      var number = Math.floor(Math.random() * (max + 1));
+      if (number === 0) {
+        gem = new Gem("blue");
+      }else if (number === 1) {
+        gem = new Gem("red");
+      }
+      this.board[i].push(gem);
+    }
+  }
 };
+Board.prototype.methodName = function () {
 
+};
 Board.prototype.swapGems = function (gemInput1, gemInput2) {
   var gem1col = gemInput1.col;
   var gem1row = gemInput1.row;
@@ -33,8 +46,8 @@ Board.prototype.swapGems = function (gemInput1, gemInput2) {
   gemInput2.row = gem1row;
   this.board[gem1col][gem1row] = gemInput2;
   this.board[gem2col][gem2row] = gemInput1;
-  // console.log(this.board);
 };
+
 Board.prototype.conditionA = function (i, j) {
   if (this.board[i][j] === this.board[i - 1][j] && this.board[i][j] === this.board[i - 2][j]) {
     return true;
@@ -42,6 +55,7 @@ Board.prototype.conditionA = function (i, j) {
     return false;
   }
 };
+
 Board.prototype.conditionB = function (i, j) {
   if (this.board[i][j] === this.board[i - 1][j] && this.board[i][j] === this.board[i + 1][j]) {
     return true;
@@ -49,6 +63,7 @@ Board.prototype.conditionB = function (i, j) {
     return false;
   }
 };
+
 Board.prototype.conditionC = function (i, j) {
   if (this.board[i][j] === this.board[i + 1][j] && this.board[i][j] === this.board[i + 2][j]) {
     return true;
@@ -56,87 +71,82 @@ Board.prototype.conditionC = function (i, j) {
     return false;
   }
 };
+
 Board.prototype.match = function () {
+  matches = new Set();
   var start = this.board.length-1;
+  var match = false;
   for (var i = start; i >= 0; i--) {
     for (var j = start; j >= 0; j--) {
 
       if (i > 1 && i<start-1) {
 
         if (this.conditionA(i, j) || this.conditionB(i, j) || this.conditionC(i, j)){
-          matches.add(j + "," + i);
+          matches.add(i + "," + j);
+          match = true;
         }
       }
-      if (i = 1) {
+      if (i === 1) {
 
         if (this.conditionB(i, j) || this.conditionC(i, j)){
-          matches.add(j + "," + i);
+          matches.add(i + "," + j);
+          match = true;
         }
       }
-      if (i = 0) {
+      if (i === 0) {
 
         if (this.conditionC(i, j)){
-          matches.add(j + "," + i);
+          matches.add(i + "," + j);
+          match = true;
         }
       }
-      if (i = start - 1) {
+      if (i === start - 1) {
 
         if (this.conditionA(i, j) || this.conditionB(i, j)){
-          matches.add(j + "," + i);
+          matches.add(i + "," + j);
+          match = true;
         }
       }
-      if (i = start) {
+      if (i === start) {
         if (this.conditionA(i, j)){
-          matches.add(j + "," + i);
+          matches.add(i + "," + j);
+          match = true;
         }
       }
         // evaluating rows
 
       // evaluating columns
       if (this.board[i][j] === this.board[i][j - 1] && this.board[i][j] === this.board[i][j - 2] || this.board[i][j] === this.board[i][j - 1] && this.board[i][j] === this.board[i][j + 1] || this.board[i][j] === this.board[i][j + 1] && this.board[i][j] === this.board[i][j + 2]) {
-        matches.add(j + "," + i);
-        colCount += 1;
+        matches.add(i + "," + j);
+        match = true;
       }
     }
   }
+  return match;
 };
 
 Board.prototype.isValid = function () {
   var tempBoard = new Board();
+
   for (var i = 0; i < this.board.length; i++) {
     for (var j = 0; j < this.board.length; j++) {
       tempBoard.board[i][j] = this.board[i][j];
+
     }
   }
-  // console.log(tempBoard);
   // tempBoard.swapGems(gem1,gem2);
   return tempBoard.match();
 };
 
 Board.prototype.clearGems = function () {
-  var value = this.board[matchCol][matchRow].type;
-  if (direction === "row") {
-    for (var i = matchCol; i >= 0; i--) {
-      if (this.board[i][matchRow].type === value) {
-        this.board[i].splice(matchRow,1);
-        // console.log(gameBoard.board);
-
-      }
-    }
-  } else if (direction === "col") {
-    for (var i = matchRow; i >= 0; i--) {
-      if (this.board[matchCol][i].type === value) {
-        this.board[matchCol].splice(i,1);
-      }
-    }
-  }
+  var thisBoard = this.board;
+  matches.forEach(function(item) {
+    var coordinates=item.split(',');
+    thisBoard[parseInt(coordinates[0])].splice(parseInt(coordinates[1]),1);
+  });
 };
 
-// var gameBoard = new Board();
-// gameBoard.isValid();
-// gameBoard.match();
-// // console.log(gameBoard.match());
-// gameBoard.clearGems();
+
 
 // User Interface Logic
 
@@ -154,8 +164,6 @@ function drawBoard(board) {
     }
   }
 }
-
-
 
 function selectGem(board) {
   var gemSwap1 = null;
@@ -192,7 +200,14 @@ function selectGem(board) {
 }
 
 $(document).ready(function(){
+
   var newBoard = new Board();
+  drawBoard(newBoard);
+  newBoard.isValid();
+  newBoard.clearGems();
+  newBoard.genGem(1);
+  drawBoard(newBoard);
+  //var newBoard = new Board();
 
 
   // var gemSwap1 = new Gem ("red");
@@ -201,8 +216,8 @@ $(document).ready(function(){
   // gemSwap2.col = 0;
   // gemSwap1.row = 0;
   // gemSwap2.row = 1;
-  drawBoard(newBoard);
-  selectGem(newBoard);
+  //drawBoard(newBoard);
+  //selectGem(newBoard);
 
   // board.swapGems(gemSwap1, gemSwap2);
 });
