@@ -6,6 +6,7 @@ function Gem(type){
   this.row;
 }
 var matches;
+var coordArray=[];
 var gem1 = new Gem ("red");
 var gem2 = new Gem ("blue");
 var gem3 = new Gem ("red");
@@ -42,26 +43,21 @@ Board.prototype.genGem = function(max) {
         gem = new Gem("blue");
       }else if (number === 1) {
         gem = new Gem("red");
+      }else if (number === 2) {
+        gem = new Gem("green");
+      }else if (number === 3) {
+        gem = new Gem("yellow");
       }
       this.board[i].push(gem);
     }
   }
 };
-Board.prototype.methodName = function () {
 
-};
-Board.prototype.swapGems = function (gemInput1, gemInput2) {
+Board.prototype.swapGems = function (coordArray) {
   // debugger;
-  var gem1col = gemInput1.col;
-  var gem1row = gemInput1.row;
-  var gem2col = gemInput2.col;
-  var gem2row = gemInput2.row;
-  gemInput1.col = gem2col;
-  gemInput1.row = gem2row;
-  gemInput2.col = gem1col;
-  gemInput2.row = gem1row;
-  this.board[gem1col][gem1row] = gemInput2;
-  this.board[gem2col][gem2row] = gemInput1;
+  var gem1Type = this.board[coordArray[0]][coordArray[1]].type;
+  this.board[coordArray[0]][coordArray[1]].type = this.board[coordArray[2]][coordArray[3]].type;
+  this.board[coordArray[2]][coordArray[3]].type = gem1Type;
 };
 
 Board.prototype.conditionA = function (i, j) {
@@ -111,6 +107,7 @@ Board.prototype.conditionF = function (i, j) {
   }
 };
 Board.prototype.match = function () {
+  // debugger;
   matches = new Set();
   var start = this.board.length-1;
   var match = false;
@@ -192,16 +189,17 @@ Board.prototype.match = function () {
   return match;
 };
 
-Board.prototype.isValid = function (gemInput1, gemInput2) {
+Board.prototype.isValid = function (coordArray) {
   var tempBoard = new Board();
 
   for (var i = 0; i < this.board.length; i++) {
     for (var j = 0; j < this.board.length; j++) {
-      tempBoard.board[i][j] = this.board[i][j];
-
+      var type = this.board[i][j].type;
+      tempBoard.board[i][j] = new Gem(type);
     }
   }
-  tempBoard.swapGems(gemInput1, gemInput2);
+  // tempBoard.board = this.board.slice();
+  tempBoard.swapGems(coordArray);
   return tempBoard.match();
 };
 
@@ -211,9 +209,16 @@ Board.prototype.clearGems = function () {
     var coordinates=item.split(',');
     thisBoard[parseInt(coordinates[0])].splice(parseInt(coordinates[1]),1);
   });
+  this.board = thisBoard;
 };
 
-
+Board.prototype.checkBoard = function () {
+  while(this.match()) {
+    this.match();
+    this.clearGems();
+    this.genGem(2);
+  }
+};
 
 // User Interface Logic
 
@@ -226,58 +231,57 @@ function drawBoard(board) {
       if (board.board[i][j].type === 'blue') {
         $(cellID).empty().append('<img src="img/blue.svg">');
        } else if (board.board[i][j].type === 'red') {
-        $(cellID).empty().append('<img src="img/red.svg">')
+        $(cellID).empty().append('<img src="img/red.svg">');
+      } else if (board.board[i][j].type === 'green') {
+        $(cellID).empty().append('<img src="img/green.svg">');
+      } else if (board.board[i][j].type === 'yellow') {
+        $(cellID).empty().append('<img src="img/yellow.svg">');
       }
     }
   }
-}
-var gemSwap1 = null;
-var gemSwap2;
-
-function selectGem(board) {
-  var thisBoard = board;
-  $('.cell').click(function() {
-    // debugger;
-    var userClick = $(this).attr('id');
-    var gemCoords = userClick.split('-');
-    var xCoord = parseInt(gemCoords[0]);
-    var yCoord = parseInt(gemCoords[1]);
-
-    if (gemSwap1 === null) {
-      $(".cell").addClass("no-click");
-      $(this).addClass("highlight");
-      board.board[xCoord][yCoord].col = xCoord;
-      board.board[xCoord][yCoord].row = yCoord;
-      gemSwap1 = board.board[xCoord][yCoord];
-      $("[id="+ xCoord + "-" + (yCoord + 1) + "]").addClass('highlight').removeClass("no-click");
-      $("[id="+ xCoord + "-" + (yCoord - 1) + "]").addClass('highlight').removeClass("no-click");
-      $("[id="+ (xCoord + 1) + "-" + yCoord + "]").addClass('highlight').removeClass("no-click");
-      $("[id="+ (xCoord - 1) + "-" + yCoord + "]").addClass('highlight').removeClass("no-click");
-    } else {
-      board.board[xCoord][yCoord].col = xCoord;
-      board.board[xCoord][yCoord].row = yCoord;
-      gemSwap2 = board.board[xCoord][yCoord];
-      // console.log(board.isValid(gemSwap1, gemSwap2));
-      if (board.isValid(gemSwap1, gemSwap2)) {
-        debugger;
-        board.swapGems(gemSwap1, gemSwap2);
-        drawBoard(board);
-        gemSwap1 = null;
-        $(".cell").removeClass("highlight");
-        $(".cell").removeClass("no-click");
-      } else {
-        drawBoard(board);
-        gemSwap1 = null;
-        $(".cell").removeClass("highlight");
-        $(".cell").removeClass("no-click");
-      }
-    }
-  });
 }
 
 $(document).ready(function(){
 
   var newBoard = new Board();
   drawBoard(newBoard);
-  selectGem(newBoard);
+
+  $('.cell').click(function() {
+    var userClick = $(this).attr('id');
+    var gemCoords = userClick.split('-');
+    var xCoord = parseInt(gemCoords[0]);
+    var yCoord = parseInt(gemCoords[1]);
+
+
+
+    if (coordArray.length === 0) {
+      coordArray.push(xCoord,yCoord);
+      console.log(coordArray);
+      $(".cell").addClass("no-click");
+      $(this).addClass("highlight");
+      $("[id="+ xCoord + "-" + (yCoord + 1) + "]").addClass('highlight').removeClass("no-click");
+      $("[id="+ xCoord + "-" + (yCoord - 1) + "]").addClass('highlight').removeClass("no-click");
+      $("[id="+ (xCoord + 1) + "-" + yCoord + "]").addClass('highlight').removeClass("no-click");
+      $("[id="+ (xCoord - 1) + "-" + yCoord + "]").addClass('highlight').removeClass("no-click");
+    } else {
+      coordArray.push(xCoord,yCoord);
+      console.log(coordArray);
+
+      if (newBoard.isValid(coordArray)) {
+        debugger;
+        newBoard.swapGems(coordArray);
+        newBoard.checkBoard();
+        // newBoard.clearGems();
+        // newBoard.genGem(2);
+        drawBoard(newBoard);
+
+      } else {
+        console.log(newBoard);
+      }
+      coordArray=[];
+      $(".cell").removeClass("highlight");
+      $(".cell").removeClass("no-click");
+    }
+  });
+
 });
