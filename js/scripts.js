@@ -15,7 +15,7 @@ function Board() {
   //   this.board.push([]);
   // }
   // return this.board;
-  this.board = [[gem1, gem1, gem1, gem2], [gem2, gem1, gem2, gem1], [gem1, gem2, gem1, gem2], [gem2, gem2, gem2, gem1]];
+  this.board = [[gem1, gem2, gem1, gem2], [gem2, gem1, gem2, gem1], [gem1, gem2, gem1, gem2], [gem2, gem1, gem2, gem1]];
 }
 
 Board.prototype.genGem = function (max) {
@@ -36,6 +36,7 @@ Board.prototype.methodName = function () {
 
 };
 Board.prototype.swapGems = function (gemInput1, gemInput2) {
+  debugger;
   var gem1col = gemInput1.col;
   var gem1row = gemInput1.row;
   var gem2col = gemInput2.col;
@@ -125,7 +126,7 @@ Board.prototype.match = function () {
   return match;
 };
 
-Board.prototype.isValid = function () {
+Board.prototype.isValid = function (gemInput1, gemInput2) {
   var tempBoard = new Board();
 
   for (var i = 0; i < this.board.length; i++) {
@@ -134,7 +135,7 @@ Board.prototype.isValid = function () {
 
     }
   }
-  // tempBoard.swapGems(gem1,gem2);
+  tempBoard.swapGems(gemInput1, gemInput2);
   return tempBoard.match();
 };
 
@@ -157,17 +158,17 @@ function drawBoard(board) {
       var cellID = '#' + i + '-' + j;
       // console.log(board.board[i][j].type);
       if (board.board[i][j].type === 'blue') {
-        $(cellID).empty().append('<img src="img/blue.png">');
+        $(cellID).empty().append('<img src="img/blue.svg">');
        } else if (board.board[i][j].type === 'red') {
-        $(cellID).empty().append('<img src="img/red.png">')
+        $(cellID).empty().append('<img src="img/red.svg">')
       }
     }
   }
 }
+var gemSwap1 = null;
+var gemSwap2;
 
 function selectGem(board) {
-  var gemSwap1 = null;
-  var gemSwap2;
   var thisBoard = board;
   $('.cell').click(function() {
     // debugger;
@@ -190,11 +191,22 @@ function selectGem(board) {
       board.board[xCoord][yCoord].col = xCoord;
       board.board[xCoord][yCoord].row = yCoord;
       gemSwap2 = board.board[xCoord][yCoord];
-      board.swapGems(gemSwap1, gemSwap2);
-      drawBoard(board);
-      gemSwap1 = null;
-      $(".cell").removeClass("highlight");
-      $(".cell").removeClass("no-click");
+      // console.log(board.isValid(gemSwap1, gemSwap2));
+      if (board.isValid(gemSwap1, gemSwap2)) {
+
+        board.swapGems(gemSwap1, gemSwap2);
+        console.log(gemSwap1);
+        console.log(gemSwap2);
+        drawBoard(board);
+        gemSwap1 = null;
+        $(".cell").removeClass("highlight");
+        $(".cell").removeClass("no-click");
+      } else {
+        drawBoard(board);
+        gemSwap1 = null;
+        $(".cell").removeClass("highlight");
+        $(".cell").removeClass("no-click");
+      }
     }
   });
 }
@@ -203,21 +215,5 @@ $(document).ready(function(){
 
   var newBoard = new Board();
   drawBoard(newBoard);
-  newBoard.isValid();
-  newBoard.clearGems();
-  newBoard.genGem(1);
-  drawBoard(newBoard);
-  //var newBoard = new Board();
-
-
-  // var gemSwap1 = new Gem ("red");
-  // var gemSwap2 = new Gem ("blue");
-  // gemSwap1.col = 0;
-  // gemSwap2.col = 0;
-  // gemSwap1.row = 0;
-  // gemSwap2.row = 1;
-  //drawBoard(newBoard);
-  //selectGem(newBoard);
-
-  // board.swapGems(gemSwap1, gemSwap2);
+  selectGem(newBoard);
 });
