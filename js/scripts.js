@@ -157,9 +157,9 @@ function drawBoard(board) {
       var cellID = '#' + i + '-' + j;
       // console.log(board.board[i][j].type);
       if (board.board[i][j].type === 'blue') {
-        $(cellID).empty().append('<img src="img/blue.png">');
+        $(cellID).empty().append('<img src="img/blue.svg">');
        } else if (board.board[i][j].type === 'red') {
-        $(cellID).empty().append('<img src="img/red.png">')
+        $(cellID).empty().append('<img src="img/red.svg">')
       }
     }
   }
@@ -203,21 +203,5 @@ $(document).ready(function(){
 
   var newBoard = new Board();
   drawBoard(newBoard);
-  newBoard.isValid();
-  newBoard.clearGems();
-  newBoard.genGem(1);
-  drawBoard(newBoard);
-  //var newBoard = new Board();
-
-
-  // var gemSwap1 = new Gem ("red");
-  // var gemSwap2 = new Gem ("blue");
-  // gemSwap1.col = 0;
-  // gemSwap2.col = 0;
-  // gemSwap1.row = 0;
-  // gemSwap2.row = 1;
-  //drawBoard(newBoard);
-  //selectGem(newBoard);
-
-  // board.swapGems(gemSwap1, gemSwap2);
+  selectGem(newBoard);
 });
