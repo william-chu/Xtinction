@@ -52,23 +52,7 @@ Board.prototype.genGem = function(max) {
     }
   }
 };
-Board.prototype.methodName = function () {
 
-};
-// Board.prototype.swapGems = function (gemInput1, gemInput2) {
-//   // debugger;
-//   var gem1col = gemInput1.col;
-//   var gem1row = gemInput1.row;
-//   var gem2col = gemInput2.col;
-//   var gem2row = gemInput2.row;
-//   var gem1Type = gemInput1.type;
-//   gemInput1.col = gem2col;
-//   gemInput1.row = gem2row;
-//   gemInput2.col = gem1col;
-//   gemInput2.row = gem1row;
-//   this.board[gem1col][gem1row].type = gemInput2.type;
-//   this.board[gem2col][gem2row].type = gem1Type;
-// };
 Board.prototype.swapGems = function (coordArray) {
   // debugger;
   var gem1Type = this.board[coordArray[0]][coordArray[1]].type;
@@ -228,7 +212,13 @@ Board.prototype.clearGems = function () {
   this.board = thisBoard;
 };
 
-
+Board.prototype.checkBoard = function () {
+  while(this.match()) {
+    this.match();
+    this.clearGems();
+    this.genGem(2);
+  }
+};
 
 // User Interface Logic
 
@@ -279,13 +269,10 @@ $(document).ready(function(){
 
       if (newBoard.isValid(coordArray)) {
         debugger;
-        console.log(newBoard.board);
         newBoard.swapGems(coordArray);
-        console.log(newBoard.board);
-        newBoard.clearGems();
-        console.log(newBoard.board);
-        newBoard.genGem(2);
-        console.log(newBoard.board);
+        newBoard.checkBoard();
+        // newBoard.clearGems();
+        // newBoard.genGem(2);
         drawBoard(newBoard);
 
       } else {
