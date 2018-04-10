@@ -16,9 +16,5 @@ img {
 }
 
 .highlight {
-  border: 2px solid red;
-}
-
-.highlight2  {
-  border: 2px solid yellow;
+  border: 2px solid green;
 }

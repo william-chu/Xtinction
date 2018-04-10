@@ -134,9 +134,14 @@ function selectGem(board) {
     var yCoord = parseInt(gemCoords[1]);
 
     if (gemSwap1 === null) {
+      $(this).addClass("highlight");
       board.board[xCoord][yCoord].col = xCoord;
       board.board[xCoord][yCoord].row = yCoord;
       gemSwap1 = board.board[xCoord][yCoord];
+      $("[id="+ xCoord + "-" + (yCoord + 1) + "]").addClass('highlight');
+      $("[id="+ xCoord + "-" + (yCoord - 1) + "]").addClass('highlight');
+      $("[id="+ (xCoord + 1) + "-" + yCoord + "]").addClass('highlight');
+      $("[id="+ (xCoord - 1) + "-" + yCoord + "]").addClass('highlight');
     } else {
       board.board[xCoord][yCoord].col = xCoord;
       board.board[xCoord][yCoord].row = yCoord;
@@ -146,10 +151,8 @@ function selectGem(board) {
       board.swapGems(gemSwap1, gemSwap2);
       drawBoard(board);
       gemSwap1 = null;
+      $(".cell").removeClass("highlight");
     }
-    // $("[id="+ xCoord + "-" + (yCoord + 1) + "]").addClass('highlight2');
-    // $("[id="+ (xCoord + 1) + "-" + yCoord + "]").addClass('highlight2');
-    // $("[id="+ (xCoord - 1) + "-" + yCoord + "]").addClass('highlight2');
   });
 }
 
