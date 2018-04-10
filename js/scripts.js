@@ -56,12 +56,13 @@ Board.prototype.swapGems = function (gemInput1, gemInput2) {
   var gem1row = gemInput1.row;
   var gem2col = gemInput2.col;
   var gem2row = gemInput2.row;
+  var gem1Type = gemInput1.type;
   gemInput1.col = gem2col;
   gemInput1.row = gem2row;
   gemInput2.col = gem1col;
   gemInput2.row = gem1row;
-  this.board[gem1col][gem1row] = gemInput2;
-  this.board[gem2col][gem2row] = gemInput1;
+  this.board[gem1col][gem1row].type = gemInput2.type;
+  this.board[gem2col][gem2row].type = gem1Type;
 };
 
 Board.prototype.conditionA = function (i, j) {
@@ -111,6 +112,7 @@ Board.prototype.conditionF = function (i, j) {
   }
 };
 Board.prototype.match = function () {
+  debugger;
   matches = new Set();
   var start = this.board.length-1;
   var match = false;
@@ -201,6 +203,7 @@ Board.prototype.isValid = function (gemInput1, gemInput2) {
 
     }
   }
+  // tempBoard.board = this.board.slice();
   tempBoard.swapGems(gemInput1, gemInput2);
   return tempBoard.match();
 };
@@ -211,6 +214,7 @@ Board.prototype.clearGems = function () {
     var coordinates=item.split(',');
     thisBoard[parseInt(coordinates[0])].splice(parseInt(coordinates[1]),1);
   });
+  this.board = thisBoard;
 };
 
 
@@ -257,16 +261,16 @@ function selectGem(board) {
       board.board[xCoord][yCoord].col = xCoord;
       board.board[xCoord][yCoord].row = yCoord;
       gemSwap2 = board.board[xCoord][yCoord];
-      // console.log(board.isValid(gemSwap1, gemSwap2));
+      console.log(gemSwap1, gemSwap2);
       if (board.isValid(gemSwap1, gemSwap2)) {
-        debugger;
         board.swapGems(gemSwap1, gemSwap2);
+        board.clearGems();
+        board.genGem(1);
         drawBoard(board);
         gemSwap1 = null;
         $(".cell").removeClass("highlight");
         $(".cell").removeClass("no-click");
       } else {
-        drawBoard(board);
         gemSwap1 = null;
         $(".cell").removeClass("highlight");
         $(".cell").removeClass("no-click");
