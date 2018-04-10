@@ -37,7 +37,7 @@ Board.prototype.methodName = function () {
 
 };
 Board.prototype.swapGems = function (gemInput1, gemInput2) {
-  debugger;
+  // debugger;
   var gem1col = gemInput1.col;
   var gem1row = gemInput1.row;
   var gem2col = gemInput2.col;
@@ -73,14 +73,35 @@ Board.prototype.conditionC = function (i, j) {
     return false;
   }
 };
+Board.prototype.conditionD = function (i, j) {
+  if (this.board[i][j].type === this.board[i][j - 1].type && this.board[i][j].type === this.board[i][j - 2].type) {
+    return true;
+  }else {
+    return false;
+  }
+};
 
+Board.prototype.conditionE = function (i, j) {
+  if (this.board[i][j].type === this.board[i][j - 1].type && this.board[i][j].type === this.board[i][j + 1].type) {
+    return true;
+  }else {
+    return false;
+  }
+};
+
+Board.prototype.conditionF = function (i, j) {
+  if (this.board[i][j].type === this.board[i][j + 1].type && this.board[i][j].type === this.board[i][j + 2].type) {
+    return true;
+  }else {
+    return false;
+  }
+};
 Board.prototype.match = function () {
   matches = new Set();
   var start = this.board.length-1;
   var match = false;
   for (var i = start; i >= 0; i--) {
     for (var j = start; j >= 0; j--) {
-
       if (i > 1 && i<start-1) {
 
         if (this.conditionA(i, j) || this.conditionB(i, j) || this.conditionC(i, j)){
@@ -118,9 +139,39 @@ Board.prototype.match = function () {
         // evaluating rows
 
       // evaluating columns
-      if (this.board[i][j].type === this.board[i][j - 1].type && this.board[i][j].type === this.board[i][j - 2].type || this.board[i][j].type === this.board[i][j - 1].type && this.board[i][j].type === this.board[i][j + 1].type || this.board[i][j].type === this.board[i][j + 1].type && this.board[i][j].type === this.board[i][j + 2].type) {
-        matches.add(i + "," + j);
-        match = true;
+      if (j > 1 && j<start-1) {
+
+        if (this.conditionD(i, j) || this.conditionE(i, j) || this.conditionF(i, j)){
+          matches.add(i + "," + j);
+          match = true;
+        }
+      }
+      if (j === 1) {
+
+        if (this.conditionE(i, j) || this.conditionF(i, j)){
+          matches.add(i + "," + j);
+          match = true;
+        }
+      }
+      if (j === 0) {
+
+        if (this.conditionF(i, j)){
+          matches.add(i + "," + j);
+          match = true;
+        }
+      }
+      if (j === start - 1) {
+
+        if (this.conditionD(i, j) || this.conditionE(i, j)){
+          matches.add(i + "," + j);
+          match = true;
+        }
+      }
+      if (j === start) {
+        if (this.conditionD(i, j)){
+          matches.add(i + "," + j);
+          match = true;
+        }
       }
     }
   }
@@ -192,12 +243,12 @@ function selectGem(board) {
       board.board[xCoord][yCoord].col = xCoord;
       board.board[xCoord][yCoord].row = yCoord;
       gemSwap2 = board.board[xCoord][yCoord];
-      // console.log(board.isValid(gemSwap1, gemSwap2));
+      console.log(board.isValid(gemSwap1, gemSwap2));
       if (board.isValid(gemSwap1, gemSwap2)) {
 
         board.swapGems(gemSwap1, gemSwap2);
-        console.log(gemSwap1);
-        console.log(gemSwap2);
+        // console.log(gemSwap1);
+        // console.log(gemSwap2);
         drawBoard(board);
         gemSwap1 = null;
         $(".cell").removeClass("highlight");
