@@ -6,6 +6,7 @@ function Gem(type){
   this.row;
 }
 var matches;
+var coordArray=[];
 var gem1 = new Gem ("red");
 var gem2 = new Gem ("blue");
 var gem3 = new Gem ("red");
@@ -249,10 +250,6 @@ function drawBoard(board) {
     }
   }
 }
-var gemSwap1 = null;
-var gemSwap2;
-
-
 
 $(document).ready(function(){
 
@@ -264,24 +261,22 @@ $(document).ready(function(){
     var gemCoords = userClick.split('-');
     var xCoord = parseInt(gemCoords[0]);
     var yCoord = parseInt(gemCoords[1]);
-    var coordArray=[];
-    coordArray.push(xCoord,yCoord);
-    console.log(coordArray);
 
-    if (gemSwap1 === null) {
+
+
+    if (coordArray.length === 0) {
+      coordArray.push(xCoord,yCoord);
+      console.log(coordArray);
       $(".cell").addClass("no-click");
       $(this).addClass("highlight");
-      newBoard.board[xCoord][yCoord].col = xCoord;
-      newBoard.board[xCoord][yCoord].row = yCoord;
-      gemSwap1 = newBoard.board[xCoord][yCoord];
       $("[id="+ xCoord + "-" + (yCoord + 1) + "]").addClass('highlight').removeClass("no-click");
       $("[id="+ xCoord + "-" + (yCoord - 1) + "]").addClass('highlight').removeClass("no-click");
       $("[id="+ (xCoord + 1) + "-" + yCoord + "]").addClass('highlight').removeClass("no-click");
       $("[id="+ (xCoord - 1) + "-" + yCoord + "]").addClass('highlight').removeClass("no-click");
     } else {
-      newBoard.board[xCoord][yCoord].col = xCoord;
-      newBoard.board[xCoord][yCoord].row = yCoord;
-      gemSwap2 = newBoard.board[xCoord][yCoord];
+      coordArray.push(xCoord,yCoord);
+      console.log(coordArray);
+
       if (newBoard.isValid(coordArray)) {
         debugger;
         console.log(newBoard.board);
@@ -296,7 +291,7 @@ $(document).ready(function(){
       } else {
         console.log(newBoard);
       }
-      gemSwap1 = null;
+      coordArray=[];
       $(".cell").removeClass("highlight");
       $(".cell").removeClass("no-click");
     }
