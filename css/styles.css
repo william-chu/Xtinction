@@ -18,3 +18,7 @@ img {
 .highlight {
   border: 2px solid green;
 }
+
+.no-click {
+  pointer-events: none;
+}
