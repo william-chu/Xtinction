@@ -11,14 +11,15 @@ var gem2 = new Gem ("blue");
 
 function Board() {
   // this.board= []
-  // for (var i = 0; i < l; i++) {
+  // for (var i = 0; i < 4; i++) {
   //   this.board.push([]);
+  //   console.log(this.board);
   // }
   // return this.board;
   this.board = [[gem1, gem2, gem1, gem2], [gem2, gem1, gem2, gem1], [gem1, gem2, gem1, gem2], [gem2, gem1, gem2, gem1]];
 }
 
-Board.prototype.genGem = function (max) {
+Board.prototype.genGem = function(max) {
   var gem;
   for (var i = 0; i < this.board.length; i++) {
     for (var j = this.board[i].length; j < this.board.length; j++) {
@@ -50,7 +51,7 @@ Board.prototype.swapGems = function (gemInput1, gemInput2) {
 };
 
 Board.prototype.conditionA = function (i, j) {
-  if (this.board[i][j] === this.board[i - 1][j] && this.board[i][j] === this.board[i - 2][j]) {
+  if (this.board[i][j].type === this.board[i - 1][j].type && this.board[i][j].type === this.board[i - 2][j].type) {
     return true;
   }else {
     return false;
@@ -58,7 +59,7 @@ Board.prototype.conditionA = function (i, j) {
 };
 
 Board.prototype.conditionB = function (i, j) {
-  if (this.board[i][j] === this.board[i - 1][j] && this.board[i][j] === this.board[i + 1][j]) {
+  if (this.board[i][j].type === this.board[i - 1][j].type && this.board[i][j].type === this.board[i + 1][j].type) {
     return true;
   }else {
     return false;
@@ -66,7 +67,7 @@ Board.prototype.conditionB = function (i, j) {
 };
 
 Board.prototype.conditionC = function (i, j) {
-  if (this.board[i][j] === this.board[i + 1][j] && this.board[i][j] === this.board[i + 2][j]) {
+  if (this.board[i][j].type === this.board[i + 1][j].type && this.board[i][j].type === this.board[i + 2][j].type) {
     return true;
   }else {
     return false;
@@ -117,7 +118,7 @@ Board.prototype.match = function () {
         // evaluating rows
 
       // evaluating columns
-      if (this.board[i][j] === this.board[i][j - 1] && this.board[i][j] === this.board[i][j - 2] || this.board[i][j] === this.board[i][j - 1] && this.board[i][j] === this.board[i][j + 1] || this.board[i][j] === this.board[i][j + 1] && this.board[i][j] === this.board[i][j + 2]) {
+      if (this.board[i][j].type === this.board[i][j - 1].type && this.board[i][j].type === this.board[i][j - 2].type || this.board[i][j].type === this.board[i][j - 1].type && this.board[i][j].type === this.board[i][j + 1].type || this.board[i][j].type === this.board[i][j + 1].type && this.board[i][j].type === this.board[i][j + 2].type) {
         matches.add(i + "," + j);
         match = true;
       }
