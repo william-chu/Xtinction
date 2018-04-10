@@ -5,8 +5,7 @@ function Gem(type){
   this.col;
   this.row;
 }
-var matchRow=[];
-var matchCol=[];
+var matches=[];
 var gem1 = new Gem ("red");
 var gem2 = new Gem ("blue");
 
@@ -59,51 +58,43 @@ Board.prototype.conditionC = function (i, j) {
 };
 Board.prototype.match = function () {
   var start = this.board.length-1;
-  rowCount = 1;
-  colCount = 1;
   for (var i = start; i >= 0; i--) {
     for (var j = start; j >= 0; j--) {
 
       if (i > 1 && i<start-1) {
 
         if (this.conditionA(i, j) || this.conditionB(i, j) || this.conditionC(i, j)){
-          matchRow.push(j);
-          matchCol.push(i);
+          matches.push(j + "," + i);
         }
       }
       if (i = 1) {
 
         if (this.conditionB(i, j) || this.conditionC(i, j)){
-          matchRow.push(j);
-          matchCol.push(i);
+          matches.push(j + "," + i);
         }
       }
       if (i = 0) {
 
         if (this.conditionC(i, j)){
-          matchRow.push(j);
-          matchCol.push(i);
+          matches.push(j + "," + i);
         }
       }
       if (i = start - 1) {
 
         if (this.conditionA(i, j) || this.conditionB(i, j)){
-          matchRow.push(j);
-          matchCol.push(i);
+          matches.push(j + "," + i);
         }
       }
       if (i = start) {
         if (this.conditionA(i, j)){
-          matchRow.push(j);
-          matchCol.push(i);
+          matches.push(j + "," + i);
         }
       }
         // evaluating rows
 
       // evaluating columns
-      if (this.board[i][j] === this.board[i][j - 1] && this.board[i][j] === this.board[i][j - 2] ) {
-        matchRow.push(j);
-        matchCol.push(i);
+      if (this.board[i][j] === this.board[i][j - 1] && this.board[i][j] === this.board[i][j - 2] || this.board[i][j] === this.board[i][j - 1] && this.board[i][j] === this.board[i][j + 1] || this.board[i][j] === this.board[i][j + 1] && this.board[i][j] === this.board[i][j + 2]) {
+        matches.push(j + "," + i);
         colCount += 1;
       }
     }
