@@ -18,10 +18,23 @@ function Board() {
   this.board = [[gem1, gem1, gem1, gem2], [gem2, gem1, gem2, gem1], [gem1, gem2, gem1, gem2], [gem2, gem2, gem2, gem1]];
 }
 
-Board.prototype.genGem = function () {
-  // Math.floor(Math.random()*3);
+Board.prototype.genGem = function (max) {
+  var gem;
+  for (var i = 0; i < this.board.length; i++) {
+    for (var j = this.board[i].length; j < this.board.length; j++) {
+      var number = Math.floor(Math.random() * (max + 1));
+      if (number === 0) {
+        gem = new Gem("blue");
+      }else if (number === 1) {
+        gem = new Gem("red");
+      }
+      this.board[i].push(gem);
+    }
+  }
 };
+Board.prototype.methodName = function () {
 
+};
 Board.prototype.swapGems = function (gemInput1, gemInput2) {
   var gem1col = gemInput1.col;
   var gem1row = gemInput1.row;
@@ -133,9 +146,7 @@ Board.prototype.clearGems = function () {
   });
 };
 
-var gameBoard = new Board();
-gameBoard.isValid();
-gameBoard.clearGems();
+
 
 // User Interface Logic
 
@@ -153,8 +164,6 @@ function drawBoard(board) {
     }
   }
 }
-
-
 
 function selectGem(board) {
   var gemSwap1 = null;
@@ -191,7 +200,14 @@ function selectGem(board) {
 }
 
 $(document).ready(function(){
+
   var newBoard = new Board();
+  drawBoard(newBoard);
+  newBoard.isValid();
+  newBoard.clearGems();
+  newBoard.genGem(1);
+  drawBoard(newBoard);
+  //var newBoard = new Board();
 
 
   // var gemSwap1 = new Gem ("red");
@@ -200,8 +216,8 @@ $(document).ready(function(){
   // gemSwap2.col = 0;
   // gemSwap1.row = 0;
   // gemSwap2.row = 1;
-  drawBoard(newBoard);
-  selectGem(newBoard);
+  //drawBoard(newBoard);
+  //selectGem(newBoard);
 
   // board.swapGems(gemSwap1, gemSwap2);
 });
