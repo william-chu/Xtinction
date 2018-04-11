@@ -258,10 +258,12 @@ Board.prototype.removeBursts= function () {
 Board.prototype.checkBoard = function () {
   if(this.match()) {
     this.clearGems();
+    drawClear(this);
+    this.removeBursts();
     this.genGem(3);
-    drawBoard(this);
+    drawNewGems(this);
     scoreTicker();
-    setTimeout(this.checkBoard.bind(this), 800);
+    setTimeout(this.checkBoard.bind(this), 200);
   }
 };
 
