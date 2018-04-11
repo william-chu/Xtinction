@@ -97,3 +97,7 @@ h1 {
 .modal {
   padding-top: 500px;
 }
+
+.modal-title {
+  margin-left: 175px;
+}
