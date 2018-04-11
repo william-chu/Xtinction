@@ -377,5 +377,6 @@ $(document).ready(function() {
     newBoard = new Board();
     newBoard.startBoard();
     drawClear(newBoard);
+    $("#game-score").text(currentScore);
   });
 });
