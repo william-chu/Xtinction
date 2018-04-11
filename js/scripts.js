@@ -250,7 +250,6 @@ $(document).ready(function() {
       coordArray.push(xCoord,yCoord);
       if (newBoard.isValid(coordArray)) {
         newBoard.swapGems(coordArray);
-        console.log(matches);
         drawBoard(newBoard);
         setTimeout(function(){
           newBoard.checkBoard();
