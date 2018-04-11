@@ -65,7 +65,7 @@ var gem48 = new Gem ("blue");
 var gem49 = new Gem ("green");
 
 function Board() {
-  this.board = [[], [], [], [], [], [], []]
+  this.board = [[], [], [], [], [], [], []];
 }
 
 Board.prototype.genGem = function(max) {
@@ -240,7 +240,6 @@ Board.prototype.clearGems = function () {
   matches.forEach(function(item) {
     var coordinates=item.split(',');
     newScore += thisBoard[parseInt(coordinates[0])][parseInt(coordinates[1])].pointVal;
-    console.log(newScore);
     thisBoard[parseInt(coordinates[0])][parseInt(coordinates[1])] = "burst";
   });
   this.board = thisBoard;
@@ -271,6 +270,7 @@ Board.prototype.startBoard = function () {
   this.genGem(3);
   while (this.match()) {
     this.clearGems();
+    this.removeBursts();
     this.genGem(3);
   }
   newScore = 0;
@@ -373,6 +373,7 @@ $(document).ready(function() {
   });
 
   $('.btn').click(function(){
+    debugger;
     newBoard = new Board();
     newBoard.startBoard();
     drawClear(newBoard);
