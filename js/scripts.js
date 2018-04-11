@@ -65,7 +65,7 @@ var gem48 = new Gem ("blue");
 var gem49 = new Gem ("green");
 
 function Board() {
-  this.board = [[gem1, gem2, gem3, gem4, gem5, gem6, gem7], [gem8, gem9, gem10, gem11, gem12, gem13, gem14], [gem15, gem16, gem17, gem18, gem19, gem20, gem21], [gem22, gem23, gem24, gem25, gem26, gem27, gem28], [gem29, gem30, gem31, gem32, gem33, gem34, gem35], [gem36, gem37, gem38, gem39, gem40, gem41, gem42], [gem43, gem44, gem45, gem46, gem47, gem48, gem49]];
+  this.board = [[], [], [], [], [], [], []]
 }
 
 Board.prototype.genGem = function(max) {
@@ -255,7 +255,15 @@ Board.prototype.checkBoard = function () {
     setTimeout(this.checkBoard.bind(this), 800);
   }
 };
-
+Board.prototype.startBoard = function () {
+  this.genGem(3);
+  while (this.match()) {
+    this.clearGems();
+    this.genGem(3);
+  }
+  newScore = 0;
+  currentScore = 0;
+};
 // User Interface Logic
 function scoreTicker() {
   if(currentScore < newScore) {
@@ -285,6 +293,7 @@ function drawBoard(board) {
 $(document).ready(function() {
 
   var newBoard = new Board();
+  newBoard.startBoard();
   drawBoard(newBoard);
   $('.cell').click(function() {
     var userClick = $(this).attr('id');
