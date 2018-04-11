@@ -207,6 +207,7 @@ Board.prototype.checkBoard = function () {
     this.match();
     this.clearGems();
     this.genGem(2);
+    drawBoard(this);
   }
 };
 
@@ -250,8 +251,10 @@ $(document).ready(function() {
       if (newBoard.isValid(coordArray)) {
         debugger;
         newBoard.swapGems(coordArray);
-        newBoard.checkBoard();
         drawBoard(newBoard);
+        setTimeout(function(){
+          newBoard.checkBoard();
+        }, 800 );
       } else {
         //nothing
       }
