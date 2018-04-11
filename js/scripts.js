@@ -261,7 +261,7 @@ function scoreTicker() {
   if(currentScore < newScore) {
     currentScore += 5;
     $("#game-score").text(currentScore);
-    setTimeout(scoreTicker, 50);
+    setTimeout(scoreTicker, 25);
   }
 }
 function drawBoard(board) {
@@ -279,7 +279,7 @@ function drawBoard(board) {
       }
     }
   }
-  $("#game-score").text("Score:" + totalScore);
+  $("#game-score").text(scoreTicker());
 }
 
 $(document).ready(function() {
