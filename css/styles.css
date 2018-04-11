@@ -6,7 +6,8 @@ body {
 #game-score {
   font-size: 40px;
   color: #efe47f;
-  font-family: 'Bungee Shade', cursive;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-weight: 100;
   margin: 6% auto 10px auto;
   max-width: 450px;
   text-align: center;
