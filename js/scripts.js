@@ -241,7 +241,7 @@ Board.prototype.clearGems = function () {
     var coordinates=item.split(',');
     newScore += thisBoard[parseInt(coordinates[0])][parseInt(coordinates[1])].pointVal;
     console.log(newScore);
-    thisBoard[parseInt(coordinates[0])].splice(parseInt(coordinates[1]),1);
+    thisBoard[parseInt(coordinates[0])][parseInt(coordinates[1])] = "burst";
   });
   this.board = thisBoard;
 };
