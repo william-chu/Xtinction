@@ -93,3 +93,7 @@ h1 {
   background-color: rgb(209, 197, 94);
   color: #896fdb;
 }
+
+.modal {
+  padding-top: 500px;
+}

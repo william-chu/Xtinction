@@ -338,7 +338,7 @@ function drawNewGems(board, i = -1, j = -1) {
 }
 
 $(document).ready(function() {
-
+  $('#instructions').modal('show');
   var newBoard = new Board();
   newBoard.board = [[gem1, gem2, gem3, gem4, gem5, gem6, gem7], [gem8, gem9, gem10, gem11, gem12, gem13, gem14], [gem15, gem16, gem17, gem18, gem19, gem20, gem21], [gem22, gem23, gem24, gem25, gem26, gem27, gem28], [gem29, gem30, gem31, gem32, gem33, gem34, gem35], [gem36, gem37, gem38, gem39, gem40, gem41, gem42], [gem43, gem44, gem45, gem46, gem47, gem48, gem49]];
   // newBoard.startBoard();
