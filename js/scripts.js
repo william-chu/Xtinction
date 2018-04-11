@@ -276,6 +276,7 @@ Board.prototype.startBoard = function () {
   newScore = 0;
   currentScore = 0;
 };
+
 // User Interface Logic
 function scoreTicker() {
   if(currentScore < newScore) {
@@ -285,13 +286,17 @@ function scoreTicker() {
   }
 }
 
-function drawBoard(board) {
+function drawClear(board) {
   for (var i = 0; i < board.board.length; i++) {
     for (var j = 0; j < board.board.length; j++) {
       var cellID = '#' + i + '-' + j;
-      if (board.board[i][j].type === 'blue') {
+      if (typeof(board.board[i][j]) === "undefined"){
+        return;
+      } else if(board.board[i][j] === "burst"){
+        $(cellID).empty().append('<img src="img/burst.gif">');
+      } else if (board.board[i][j].type === 'blue') {
         $(cellID).empty().append('<img src="img/blue.svg">');
-       } else if (board.board[i][j].type === 'red') {
+      } else if (board.board[i][j].type === 'red') {
         $(cellID).empty().append('<img src="img/red.svg">');
       } else if (board.board[i][j].type === 'green') {
         $(cellID).empty().append('<img src="img/green.svg">');
