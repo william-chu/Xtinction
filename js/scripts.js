@@ -362,9 +362,7 @@ $(document).ready(function() {
         // debugger;
         newBoard.swapGems(coordArray);
         drawClear(newBoard);
-        setTimeout(function(){
-          newBoard.checkBoard();
-        }, 800 );
+        newBoard.checkBoard();
       } else {
         //nothing
       }
