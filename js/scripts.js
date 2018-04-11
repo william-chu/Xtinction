@@ -2,14 +2,11 @@
 function Gem(type) {
   this.type = type;
   this.pointVal = 50;
-  this.col;
-  this.row;
 }
 
 var matches;
-var totalScore;
-var pointArray = [];
-var coordArray=[];
+var totalScore = 0;
+var coordArray = [];
 var gem1 = new Gem ("red");
 var gem2 = new Gem ("blue");
 var gem3 = new Gem ("red");
@@ -85,8 +82,11 @@ Board.prototype.genGem = function(max) {
 
 Board.prototype.swapGems = function (coordArray) {
   var gem1Type = this.board[coordArray[0]][coordArray[1]].type;
+  var gem1Pts = this.board[coordArray[0]][coordArray[1]].pointVal;
   this.board[coordArray[0]][coordArray[1]].type = this.board[coordArray[2]][coordArray[3]].type;
   this.board[coordArray[2]][coordArray[3]].type = gem1Type;
+  this.board[coordArray[0]][coordArray[1]].pointVal = this.board[coordArray[2]][coordArray[3]].pointVal;
+  this.board[coordArray[2]][coordArray[3]].pointVal = gem1Type;
 };
 
 Board.prototype.conditionA = function (i, j) {
@@ -136,14 +136,9 @@ Board.prototype.conditionF = function (i, j) {
     return false;
   }
 };
-// Board.prototype.helper = function (i, j) {
-//   matches.add(i + "," + j);
-//   pointArray.push(this.board[i][j].pointVal);
-//   match = true;
-// };
+
 Board.prototype.match = function () {
   matches = new Set();
-  pointArray = [];
   var start = this.board.length-1;
   var match = false;
   for (var i = start; i >= 0; i--) {
@@ -151,7 +146,6 @@ Board.prototype.match = function () {
       if (i > 1 && i < start-1) {
         if (this.conditionA(i, j) || this.conditionB(i, j) || this.conditionC(i, j)) {
           matches.add(i + "," + j);
-          pointArray.push(this.board[i][j].pointVal);
           match = true;
         }
       }
@@ -159,7 +153,6 @@ Board.prototype.match = function () {
 
         if (this.conditionB(i, j) || this.conditionC(i, j)) {
           matches.add(i + "," + j);
-          pointArray.push(this.board[i][j].pointVal);
           match = true;
         }
       }
@@ -167,7 +160,6 @@ Board.prototype.match = function () {
 
         if (this.conditionC(i, j)) {
           matches.add(i + "," + j);
-          pointArray.push(this.board[i][j].pointVal);
           match = true;
         }
       }
@@ -175,14 +167,12 @@ Board.prototype.match = function () {
 
         if (this.conditionA(i, j) || this.conditionB(i, j)) {
           matches.add(i + "," + j);
-          pointArray.push(this.board[i][j].pointVal);
           match = true;
         }
       }
       if (i === start) {
         if (this.conditionA(i, j)) {
           matches.add(i + "," + j);
-          pointArray.push(this.board[i][j].pointVal);
           match = true;
         }
       }
@@ -190,7 +180,6 @@ Board.prototype.match = function () {
 
         if (this.conditionD(i, j) || this.conditionE(i, j) || this.conditionF(i, j)) {
           matches.add(i + "," + j);
-          pointArray.push(this.board[i][j].pointVal);
           match = true;
         }
       }
@@ -198,7 +187,6 @@ Board.prototype.match = function () {
 
         if (this.conditionE(i, j) || this.conditionF(i, j)) {
           matches.add(i + "," + j);
-          pointArray.push(this.board[i][j].pointVal);
           match = true;
         }
       }
@@ -206,7 +194,6 @@ Board.prototype.match = function () {
 
         if (this.conditionF(i, j)) {
           matches.add(i + "," + j);
-          pointArray.push(this.board[i][j].pointVal);
           match = true;
         }
       }
@@ -214,14 +201,12 @@ Board.prototype.match = function () {
 
         if (this.conditionD(i, j) || this.conditionE(i, j)) {
           matches.add(i + "," + j);
-          pointArray.push(this.board[i][j].pointVal);
           match = true;
         }
       }
       if (j === start) {
         if (this.conditionD(i, j)) {
           matches.add(i + "," + j);
-          pointArray.push(this.board[i][j].pointVal);
           match = true;
         }
       }
@@ -247,6 +232,8 @@ Board.prototype.clearGems = function () {
   var thisBoard = this.board;
   matches.forEach(function(item) {
     var coordinates=item.split(',');
+    totalScore += thisBoard[parseInt(coordinates[0])][parseInt(coordinates[1])].pointVal;
+    console.log(totalScore);
     thisBoard[parseInt(coordinates[0])].splice(parseInt(coordinates[1]),1);
   });
   this.board = thisBoard;
