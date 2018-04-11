@@ -246,6 +246,15 @@ Board.prototype.clearGems = function () {
   this.board = thisBoard;
 };
 
+Board.prototype.removeBursts= function () {
+  var thisBoard = this.board;
+  matches.forEach(function(item) {
+    var coordinates=item.split(',');
+    thisBoard[parseInt(coordinates[0])].splice(parseInt(coordinates[1]),1);
+  });
+  this.board = thisBoard;
+};
+
 Board.prototype.checkBoard = function () {
   if(this.match()) {
     this.clearGems();
