@@ -101,3 +101,7 @@ h1 {
 .modal-title {
   margin-left: 175px;
 }
+
+.modal-body span {
+  font-family: 'Bungee Inline', cursive;
+}
