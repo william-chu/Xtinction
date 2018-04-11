@@ -6,6 +6,8 @@ function Gem(type){
   this.row;
 }
 var matches;
+var totalScore;
+var pointArray = [];
 var coordArray=[];
 var gem1 = new Gem ("red");
 var gem2 = new Gem ("blue");
@@ -106,9 +108,15 @@ Board.prototype.conditionF = function (i, j) {
     return false;
   }
 };
+// Board.prototype.helper = function (i, j) {
+//   matches.add(i + "," + j);
+//   pointArray.push(this.board[i][j].pointVal);
+//   match = true;
+// };
 Board.prototype.match = function () {
   // debugger;
   matches = new Set();
+  pointArray = [];
   var start = this.board.length-1;
   var match = false;
   for (var i = start; i >= 0; i--) {
@@ -117,6 +125,7 @@ Board.prototype.match = function () {
 
         if (this.conditionA(i, j) || this.conditionB(i, j) || this.conditionC(i, j)){
           matches.add(i + "," + j);
+          pointArray.push(this.board[i][j].pointVal);
           match = true;
         }
       }
@@ -124,6 +133,7 @@ Board.prototype.match = function () {
 
         if (this.conditionB(i, j) || this.conditionC(i, j)){
           matches.add(i + "," + j);
+          pointArray.push(this.board[i][j].pointVal);
           match = true;
         }
       }
@@ -131,6 +141,7 @@ Board.prototype.match = function () {
 
         if (this.conditionC(i, j)){
           matches.add(i + "," + j);
+          pointArray.push(this.board[i][j].pointVal);
           match = true;
         }
       }
@@ -138,12 +149,14 @@ Board.prototype.match = function () {
 
         if (this.conditionA(i, j) || this.conditionB(i, j)){
           matches.add(i + "," + j);
+          pointArray.push(this.board[i][j].pointVal);
           match = true;
         }
       }
       if (i === start) {
         if (this.conditionA(i, j)){
           matches.add(i + "," + j);
+          pointArray.push(this.board[i][j].pointVal);
           match = true;
         }
       }
@@ -154,6 +167,7 @@ Board.prototype.match = function () {
 
         if (this.conditionD(i, j) || this.conditionE(i, j) || this.conditionF(i, j)){
           matches.add(i + "," + j);
+          pointArray.push(this.board[i][j].pointVal);
           match = true;
         }
       }
@@ -161,6 +175,7 @@ Board.prototype.match = function () {
 
         if (this.conditionE(i, j) || this.conditionF(i, j)){
           matches.add(i + "," + j);
+          pointArray.push(this.board[i][j].pointVal);
           match = true;
         }
       }
@@ -168,6 +183,7 @@ Board.prototype.match = function () {
 
         if (this.conditionF(i, j)){
           matches.add(i + "," + j);
+          pointArray.push(this.board[i][j].pointVal);
           match = true;
         }
       }
@@ -175,12 +191,14 @@ Board.prototype.match = function () {
 
         if (this.conditionD(i, j) || this.conditionE(i, j)){
           matches.add(i + "," + j);
+          pointArray.push(this.board[i][j].pointVal);
           match = true;
         }
       }
       if (j === start) {
         if (this.conditionD(i, j)){
           matches.add(i + "," + j);
+          pointArray.push(this.board[i][j].pointVal);
           match = true;
         }
       }
@@ -268,7 +286,7 @@ $(document).ready(function(){
       console.log(coordArray);
 
       if (newBoard.isValid(coordArray)) {
-        debugger;
+        // debugger;
         newBoard.swapGems(coordArray);
         newBoard.checkBoard();
         // newBoard.clearGems();
