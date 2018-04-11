@@ -2,12 +2,11 @@
 function Gem(type) {
   this.type = type;
   this.pointVal = 50;
-  this.col;
-  this.row;
 }
 
 var matches;
-var coordArray=[];
+var totalScore = 0;
+var coordArray = [];
 var gem1 = new Gem ("red");
 var gem2 = new Gem ("blue");
 var gem3 = new Gem ("red");
@@ -83,8 +82,11 @@ Board.prototype.genGem = function(max) {
 
 Board.prototype.swapGems = function (coordArray) {
   var gem1Type = this.board[coordArray[0]][coordArray[1]].type;
+  var gem1Pts = this.board[coordArray[0]][coordArray[1]].pointVal;
   this.board[coordArray[0]][coordArray[1]].type = this.board[coordArray[2]][coordArray[3]].type;
   this.board[coordArray[2]][coordArray[3]].type = gem1Type;
+  this.board[coordArray[0]][coordArray[1]].pointVal = this.board[coordArray[2]][coordArray[3]].pointVal;
+  this.board[coordArray[2]][coordArray[3]].pointVal = gem1Type;
 };
 
 Board.prototype.conditionA = function (i, j) {
@@ -230,6 +232,8 @@ Board.prototype.clearGems = function () {
   var thisBoard = this.board;
   matches.forEach(function(item) {
     var coordinates=item.split(',');
+    totalScore += thisBoard[parseInt(coordinates[0])][parseInt(coordinates[1])].pointVal;
+    console.log(totalScore);
     thisBoard[parseInt(coordinates[0])].splice(parseInt(coordinates[1]),1);
   });
   this.board = thisBoard;
@@ -282,6 +286,7 @@ $(document).ready(function() {
     } else {
       coordArray.push(xCoord,yCoord);
       if (newBoard.isValid(coordArray)) {
+        // debugger;
         newBoard.swapGems(coordArray);
         drawBoard(newBoard);
         setTimeout(function(){
