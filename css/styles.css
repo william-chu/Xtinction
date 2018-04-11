@@ -5,14 +5,15 @@ table {
 
 td {
   border: 1px solid lightgray;
-  max-width: 100px;
-  max-height: 100px;
+  max-width: 75px;
+  max-height: 75px;
   cursor: pointer;
 }
 
 img {
-  width: 90px;
-  height: 90px;
+  width: 60px;
+  height: 60px;
+  padding: 4px;
 }
 
 .highlight {
@@ -24,5 +25,5 @@ img {
 }
 
 .flash {
-  
+
 }

@@ -24,9 +24,42 @@ var gem13 = new Gem ("blue");
 var gem14 = new Gem ("red");
 var gem15 = new Gem ("blue");
 var gem16 = new Gem ("red");
+var gem17 = new Gem ("red");
+var gem18 = new Gem ("blue");
+var gem19 = new Gem ("red");
+var gem20 = new Gem ("blue");
+var gem21 = new Gem ("blue");
+var gem22 = new Gem ("red");
+var gem23 = new Gem ("blue");
+var gem24 = new Gem ("red");
+var gem25 = new Gem ("red");
+var gem26 = new Gem ("blue");
+var gem27 = new Gem ("red");
+var gem28 = new Gem ("blue");
+var gem29 = new Gem ("blue");
+var gem30 = new Gem ("red");
+var gem31 = new Gem ("blue");
+var gem32 = new Gem ("red");
+var gem33 = new Gem ("red");
+var gem34 = new Gem ("blue");
+var gem35 = new Gem ("red");
+var gem36 = new Gem ("blue");
+var gem37 = new Gem ("blue");
+var gem38 = new Gem ("red");
+var gem39 = new Gem ("blue");
+var gem40 = new Gem ("red");
+var gem41 = new Gem ("red");
+var gem42 = new Gem ("blue");
+var gem43 = new Gem ("red");
+var gem44 = new Gem ("blue");
+var gem45 = new Gem ("blue");
+var gem46 = new Gem ("red");
+var gem47 = new Gem ("blue");
+var gem48 = new Gem ("red");
+var gem49 = new Gem ("blue");
 
 function Board() {
-  this.board = [[gem1, gem2, gem3, gem4], [gem5, gem6, gem7, gem8], [gem9, gem10, gem11, gem12], [gem13, gem14, gem15, gem16]];
+  this.board = [[gem1, gem2, gem3, gem4, gem5, gem6, gem7], [gem8, gem9, gem10, gem11, gem12, gem13, gem14], [gem15, gem16, gem17, gem18, gem19, gem20, gem21], [gem22, gem23, gem24, gem25, gem26, gem27, gem28], [gem29, gem30, gem31, gem32, gem33, gem34, gem35], [gem36, gem37, gem38, gem39, gem40, gem41, gem42], [gem43, gem44, gem45, gem46, gem47, gem48, gem49]];
 }
 
 Board.prototype.genGem = function(max) {
@@ -205,7 +238,7 @@ Board.prototype.clearGems = function () {
 Board.prototype.checkBoard = function () {
   if(this.match()) {
     this.clearGems();
-    this.genGem(2);
+    this.genGem(3);
     drawBoard(this);
     setTimeout(this.checkBoard.bind(this), 800);
   }
