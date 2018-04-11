@@ -203,11 +203,11 @@ Board.prototype.clearGems = function () {
 };
 
 Board.prototype.checkBoard = function () {
-  while(this.match()) {
-    this.match();
+  if(this.match()) {
     this.clearGems();
     this.genGem(2);
     drawBoard(this);
+    setTimeout(this.checkBoard.bind(this), 800);
   }
 };
 
@@ -249,8 +249,8 @@ $(document).ready(function() {
     } else {
       coordArray.push(xCoord,yCoord);
       if (newBoard.isValid(coordArray)) {
-        debugger;
         newBoard.swapGems(coordArray);
+        console.log(matches);
         drawBoard(newBoard);
         setTimeout(function(){
           newBoard.checkBoard();
