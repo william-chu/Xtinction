@@ -255,6 +255,7 @@ Board.prototype.checkBoard = function () {
     setTimeout(this.checkBoard.bind(this), 800);
   }
 };
+
 Board.prototype.startBoard = function () {
   this.genGem(3);
   while (this.match()) {
@@ -272,6 +273,7 @@ function scoreTicker() {
     setTimeout(scoreTicker, 25);
   }
 }
+
 function drawBoard(board) {
   for (var i = 0; i < board.board.length; i++) {
     for (var j = 0; j < board.board.length; j++) {
@@ -328,8 +330,8 @@ $(document).ready(function() {
   });
 
   $('.btn').click(function(){
-    var createNewBoard = new Board();
-    createNewBoard.startBoard();
-    drawBoard(createNewBoard);
+    newBoard = new Board();
+    newBoard.startBoard();
+    drawBoard(newBoard);
   });
 });
