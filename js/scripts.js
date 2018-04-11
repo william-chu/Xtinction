@@ -308,12 +308,41 @@ function drawClear(board) {
   $("#game-score").text(scoreTicker());
 }
 
+function drawNewGems(board, i = -1, j = -1) {
+  if (i === -1 && j === -1) {
+    setTimeout(function() {
+      drawNewGems(board, 0, 0);
+    }, 700);
+  } else if (i < board.board.length) {
+    if (j < board.board.length){
+      var cellID = '#' + i + '-' + j;
+      if (typeof(board.board[i][j]) === "undefined"){
+        return;
+      } else if(board.board[i][j] === "burst"){
+        $(cellID).empty().append('<img src="img/burst.gif">');
+      } else if (board.board[i][j].type === 'blue') {
+        $(cellID).empty().append('<img src="img/blue.svg">');
+      } else if (board.board[i][j].type === 'red') {
+        $(cellID).empty().append('<img src="img/red.svg">');
+      } else if (board.board[i][j].type === 'green') {
+        $(cellID).empty().append('<img src="img/green.svg">');
+      } else if (board.board[i][j].type === 'yellow') {
+        $(cellID).empty().append('<img src="img/yellow.svg">');
+      }
+      setTimeout(function() {
+        drawNewGems(board, i, j+1);
+      }, 200*(1/(j+1)));
+    }
+    drawNewGems(board, i+1, j);
+  }
+}
+
 $(document).ready(function() {
 
   var newBoard = new Board();
   newBoard.board = [[gem1, gem2, gem3, gem4, gem5, gem6, gem7], [gem8, gem9, gem10, gem11, gem12, gem13, gem14], [gem15, gem16, gem17, gem18, gem19, gem20, gem21], [gem22, gem23, gem24, gem25, gem26, gem27, gem28], [gem29, gem30, gem31, gem32, gem33, gem34, gem35], [gem36, gem37, gem38, gem39, gem40, gem41, gem42], [gem43, gem44, gem45, gem46, gem47, gem48, gem49]];
   // newBoard.startBoard();
-  drawBoard(newBoard);
+  drawClear(newBoard);
   $('.cell').click(function() {
     var userClick = $(this).attr('id');
     var gemCoords = userClick.split('-');
@@ -332,7 +361,7 @@ $(document).ready(function() {
       if (newBoard.isValid(coordArray)) {
         // debugger;
         newBoard.swapGems(coordArray);
-        drawBoard(newBoard);
+        drawClear(newBoard);
         setTimeout(function(){
           newBoard.checkBoard();
         }, 800 );
@@ -348,6 +377,6 @@ $(document).ready(function() {
   $('.btn').click(function(){
     newBoard = new Board();
     newBoard.startBoard();
-    drawBoard(newBoard);
+    drawClear(newBoard);
   });
 });
