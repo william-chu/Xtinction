@@ -5,7 +5,8 @@ function Gem(type) {
 }
 
 var matches;
-var totalScore = 0;
+var currentScore = 0;
+var newScore = 0;
 var coordArray = [];
 var gem1 = new Gem ("green");
 var gem2 = new Gem ("blue");
@@ -92,7 +93,7 @@ Board.prototype.swapGems = function (coordArray) {
   this.board[coordArray[0]][coordArray[1]].type = this.board[coordArray[2]][coordArray[3]].type;
   this.board[coordArray[2]][coordArray[3]].type = gem1Type;
   this.board[coordArray[0]][coordArray[1]].pointVal = this.board[coordArray[2]][coordArray[3]].pointVal;
-  this.board[coordArray[2]][coordArray[3]].pointVal = gem1Type;
+  this.board[coordArray[2]][coordArray[3]].pointVal = gem1Pts;
 };
 
 Board.prototype.conditionA = function (i, j) {
@@ -238,8 +239,8 @@ Board.prototype.clearGems = function () {
   var thisBoard = this.board;
   matches.forEach(function(item) {
     var coordinates=item.split(',');
-    totalScore += thisBoard[parseInt(coordinates[0])][parseInt(coordinates[1])].pointVal;
-    console.log(totalScore);
+    newScore += thisBoard[parseInt(coordinates[0])][parseInt(coordinates[1])].pointVal;
+    console.log(newScore);
     thisBoard[parseInt(coordinates[0])].splice(parseInt(coordinates[1]),1);
   });
   this.board = thisBoard;
@@ -250,11 +251,19 @@ Board.prototype.checkBoard = function () {
     this.clearGems();
     this.genGem(3);
     drawBoard(this);
+    scoreTicker();
     setTimeout(this.checkBoard.bind(this), 800);
   }
 };
 
 // User Interface Logic
+function scoreTicker() {
+  if(currentScore < newScore) {
+    currentScore += 5;
+    $("#game-score").text(currentScore);
+    setTimeout(scoreTicker, 50);
+  }
+}
 function drawBoard(board) {
   for (var i = 0; i < board.board.length; i++) {
     for (var j = 0; j < board.board.length; j++) {
