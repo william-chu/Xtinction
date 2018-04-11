@@ -4,6 +4,7 @@ body {
 }
 
 #game-score {
+  font-size: 40px;
   color: #efe47f;
   font-family: 'Bungee Shade', cursive;
   margin: 6% auto 10px auto;
@@ -12,9 +13,6 @@ body {
   border: 12px solid rgb(239, 228, 127, 0.5);
 }
 
-#game-score h2 {
-  font-size: 40px;
-}
 
 table{
   margin: 0 auto 10% auto;
