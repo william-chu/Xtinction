@@ -1,10 +1,30 @@
-table {
-  margin:30% auto;
+body {
+  background-color: #896fdb;
+  background-image: url("https://www.transparenttextures.com/patterns/inspiration-geometry.png");
+}
+
+#game-score {
+  color: #efe47f;
+  font-family: 'Bungee Shade', cursive;
+  margin: 6% auto 10px auto;
+  max-width: 450px;
   text-align: center;
+  border: 12px solid rgb(239, 228, 127, 0.5);
+}
+
+#game-score h2 {
+  font-size: 40px;
+}
+
+table{
+  margin: 0 auto 10% auto;
+  text-align: center;
+  border: 12px solid rgb(239, 228, 127, 0.5);
 }
 
 td {
-  border: 1px solid lightgray;
+  background-color: rgb(255, 255, 255, 0.2);
+  border: 1px dashed #efe47f;
   max-width: 75px;
   max-height: 75px;
   cursor: pointer;
@@ -17,13 +37,18 @@ img {
 }
 
 .highlight {
-  border: 2px solid orchid;
+  border: 3px solid #e9aaff;
+  border-radius: 50%;
 }
 
 .no-click {
   pointer-events: none;
 }
 
-.flash {
-
+h1 {
+  margin-top: 6%;
+  color: #efe47f;
+  font-size: 80px;
+  text-align: center;
+  font-family: 'Bungee Shade', cursive;
 }
