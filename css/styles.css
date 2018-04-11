@@ -22,6 +22,22 @@ th {
   font-weight: 100;
 }
 
+tr td {
+  border-top: none;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr td:first-child {
+  border-left: none;
+}
+
+tr td:last-child {
+  border-right: none;
+}
+
 td {
   background-color: rgb(255, 255, 255, 0.2);
   border: 1px dashed rgb(239, 228, 127, 0.5);
@@ -39,6 +55,12 @@ img {
 .highlight {
   border: 3px solid #e9aaff;
   border-radius: 50%;
+}
+
+.highlight img {
+  width: 55px;
+  height: 55px;
+  padding: 4px;
 }
 
 .no-click {
