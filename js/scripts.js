@@ -1,5 +1,5 @@
 // Backend Logic
-function Gem(type) {
+function Gem(type) { //creates a gem object with a type and value
   this.type = type;
   this.pointVal = 50;
 }
@@ -68,7 +68,7 @@ function Board() { // Constructs a board of empty arrays that gem objects can be
   this.board = [[], [], [], [], [], [], []];
 }
 
-Board.prototype.genGem = function(max) {  // Creates gems and pushes them into a board
+Board.prototype.genGem = function(max) {  // Creates gems randomly and pushes them into a board
   var gem;
   for (var i = 0; i < this.board.length; i++) {
     for (var j = this.board[i].length; j < this.board.length; j++) {
@@ -87,7 +87,7 @@ Board.prototype.genGem = function(max) {  // Creates gems and pushes them into a
   }
 };
 
-Board.prototype.swapGems = function (coordArray) {  //Swaps the values of gems selected using their coordinates in the board
+Board.prototype.swapGems = function (coordArray) {  //Swaps the types and point values of gems selected using their coordinates in the board
   var gem1Type = this.board[coordArray[0]][coordArray[1]].type;
   var gem1Pts = this.board[coordArray[0]][coordArray[1]].pointVal;
   this.board[coordArray[0]][coordArray[1]].type = this.board[coordArray[2]][coordArray[3]].type;
@@ -104,7 +104,7 @@ Board.prototype.conditionA = function (i, j) { // checks to see if a gem matches
   }
 };
 
-Board.prototype.conditionB = function (i, j) { // checks to see if a gem matches the two gems  1 above and 1 below it
+Board.prototype.conditionB = function (i, j) { // checks to see if a gem matches the two gems 1 above and 1 below it
   if (this.board[i][j].type === this.board[i - 1][j].type && this.board[i][j].type === this.board[i + 1][j].type) {
     return true;
   } else {
@@ -144,7 +144,7 @@ Board.prototype.conditionF = function (i, j) { //checks to see if a gem matches 
   }
 };
 
-Board.prototype.match = function () { //Loops through board and checks conditions A-F
+Board.prototype.match = function () { //Loops through board and checks conditions A-F and adds coordinates of matched cells to a set
   matches = new Set();
   var start = this.board.length-1;
   var match = false;
@@ -235,7 +235,7 @@ Board.prototype.isValid = function (coordArray) { //checks to see if the gems se
   return tempBoard.match();
 };
 
-Board.prototype.clearGems = function () { //changes any gems that match at least 3 in a row up or down into explosions
+Board.prototype.clearGems = function () { //changes any gems that match at least 3 in a row up or down into explosions and their point values to the score
   var thisBoard = this.board;
   matches.forEach(function(item) {
     var coordinates=item.split(',');
@@ -254,7 +254,7 @@ Board.prototype.removeBursts= function () { //clears exploded gems
   this.board = thisBoard;
 };
 
-Board.prototype.checkBoard = function () { //checks to see if new matches were made when new gems were populated, then clears them
+Board.prototype.checkBoard = function () { //checks to see if new matches were made when new gems were populated, then clears them and updates board as it goes with timeout
   if(this.match()) {
     this.clearGems();
     drawClear(this);
@@ -278,7 +278,7 @@ Board.prototype.startBoard = function () { //sets up a randomly generated board 
 };
 
 // User Interface Logic
-function scoreTicker() {  //make score count up by 5
+function scoreTicker() {  //make score count up by 5 and animates DOM score using timeouts
   if(currentScore < newScore) {
     currentScore += 5;
     $("#game-score").text(currentScore);
@@ -303,7 +303,7 @@ function drawHelper(board, i, j) { //draws gems into the html board
   }
 }
 
-function drawClear(board) { // draws board and updates score
+function drawClear(board) { // draws board and updates score with no timeout
   for (var i = 0; i < board.board.length; i++) {
     for (var j = 0; j < board.board.length; j++) {
       drawHelper(board, i, j);
@@ -332,7 +332,6 @@ $(document).ready(function() {
   $('#instructions').modal('show');
   var newBoard = new Board();
   newBoard.board = [[gem1, gem2, gem3, gem4, gem5, gem6, gem7], [gem8, gem9, gem10, gem11, gem12, gem13, gem14], [gem15, gem16, gem17, gem18, gem19, gem20, gem21], [gem22, gem23, gem24, gem25, gem26, gem27, gem28], [gem29, gem30, gem31, gem32, gem33, gem34, gem35], [gem36, gem37, gem38, gem39, gem40, gem41, gem42], [gem43, gem44, gem45, gem46, gem47, gem48, gem49]];
-  // newBoard.startBoard();
   drawClear(newBoard);
   // gathers coordinates of clicked gems and pushes coordinates into an array
   $('.cell').click(function() {
@@ -345,10 +344,10 @@ $(document).ready(function() {
       coordArray.push(xCoord,yCoord);
       $(".cell").addClass("no-click");
       $(this).addClass("highlight");
-      $("[id="+ xCoord + "-" + (yCoord + 1) + "]").addClass('highlight').removeClass("no-click");
-      $("[id="+ xCoord + "-" + (yCoord - 1) + "]").addClass('highlight').removeClass("no-click");
-      $("[id="+ (xCoord + 1) + "-" + yCoord + "]").addClass('highlight').removeClass("no-click");
-      $("[id="+ (xCoord - 1) + "-" + yCoord + "]").addClass('highlight').removeClass("no-click");
+      $('[id='+ xCoord + '-' + (yCoord + 1) + ']').addClass('highlight').removeClass('no-click');
+      $('[id='+ xCoord + '-' + (yCoord - 1) + ']').addClass('highlight').removeClass('no-click');
+      $('[id='+ (xCoord + 1) + '-' + yCoord + ']').addClass('highlight').removeClass('no-click');
+      $('[id='+ (xCoord - 1) + '-' + yCoord + ']').addClass('highlight').removeClass('no-click');
     } else {
       /* checks to see if there's a second click, and checks to see if move is valid. If so, it runs the match func and clears
       the appropriate gems */
@@ -358,7 +357,7 @@ $(document).ready(function() {
         drawClear(newBoard);
         newBoard.checkBoard();
       } else {
-        //nothing
+        // nothing
       }
       // resets click functionality to board for next turn
       coordArray=[];
