@@ -1,10 +1,10 @@
-# **Bedazzzled!**
+# **Xtinction**
 
 #### By William Chu, Cory West-Forbes, Kristen Chellis, Brea Borlas
 
 ## Description
 
-A clone of Bejeweled, the popular game.
+A clone of Bejeweled, the popular game. Re-skinned with dinosaurs.
 
 ## Specifications
 
@@ -20,8 +20,8 @@ A clone of Bejeweled, the popular game.
 
 ## Setup/Installation Requirements
 
-* To view project code, _clone repository from_
-* To view project, _open in web browser_
+* To view project code, _clone repository from_ https://github.com/william-chu/Xtinction/
+* To view project, _open in web browser_ https://william-chu.github.io/Xtinction/
 
 ## Known Bugs
 
