@@ -8,61 +8,61 @@ var matches;
 var currentScore = 0;
 var newScore = 0;
 var coordArray = [];
-var gem1 = new Gem ("green");
-var gem2 = new Gem ("blue");
-var gem3 = new Gem ("blue");
-var gem4 = new Gem ("red");
-var gem5 = new Gem ("blue");
-var gem6 = new Gem ("blue");
-var gem7 = new Gem ("green");
+var gem1 = new Gem ('green');
+var gem2 = new Gem ('blue');
+var gem3 = new Gem ('blue');
+var gem4 = new Gem ('red');
+var gem5 = new Gem ('blue');
+var gem6 = new Gem ('blue');
+var gem7 = new Gem ('green');
 
-var gem8 = new Gem ("blue");
-var gem9 = new Gem ("blue");
-var gem10 = new Gem ("green");
-var gem11 = new Gem ("red");
-var gem12 = new Gem ("green");
-var gem13 = new Gem ("blue");
-var gem14 = new Gem ("blue");
+var gem8 = new Gem ('blue');
+var gem9 = new Gem ('blue');
+var gem10 = new Gem ('green');
+var gem11 = new Gem ('red');
+var gem12 = new Gem ('green');
+var gem13 = new Gem ('blue');
+var gem14 = new Gem ('blue');
 
-var gem15 = new Gem ("yellow");
-var gem16 = new Gem ("green");
-var gem17 = new Gem ("red");
-var gem18 = new Gem ("yellow");
-var gem19 = new Gem ("red");
-var gem20 = new Gem ("green");
-var gem21 = new Gem ("yellow");
+var gem15 = new Gem ('yellow');
+var gem16 = new Gem ('green');
+var gem17 = new Gem ('red');
+var gem18 = new Gem ('yellow');
+var gem19 = new Gem ('red');
+var gem20 = new Gem ('green');
+var gem21 = new Gem ('yellow');
 
-var gem22 = new Gem ("green");
-var gem23 = new Gem ("red");
-var gem24 = new Gem ("yellow");
-var gem25 = new Gem ("blue");
-var gem26 = new Gem ("yellow");
-var gem27 = new Gem ("red");
-var gem28 = new Gem ("green");
+var gem22 = new Gem ('green');
+var gem23 = new Gem ('red');
+var gem24 = new Gem ('yellow');
+var gem25 = new Gem ('blue');
+var gem26 = new Gem ('yellow');
+var gem27 = new Gem ('red');
+var gem28 = new Gem ('green');
 
-var gem29 = new Gem ("yellow");
-var gem30 = new Gem ("green");
-var gem31 = new Gem ("red");
-var gem32 = new Gem ("yellow");
-var gem33 = new Gem ("red");
-var gem34 = new Gem ("green");
-var gem35 = new Gem ("yellow");
+var gem29 = new Gem ('yellow');
+var gem30 = new Gem ('green');
+var gem31 = new Gem ('red');
+var gem32 = new Gem ('yellow');
+var gem33 = new Gem ('red');
+var gem34 = new Gem ('green');
+var gem35 = new Gem ('yellow');
 
-var gem36 = new Gem ("blue");
-var gem37 = new Gem ("blue");
-var gem38 = new Gem ("green");
-var gem39 = new Gem ("red");
-var gem40 = new Gem ("green");
-var gem41 = new Gem ("blue");
-var gem42 = new Gem ("blue");
+var gem36 = new Gem ('blue');
+var gem37 = new Gem ('blue');
+var gem38 = new Gem ('green');
+var gem39 = new Gem ('red');
+var gem40 = new Gem ('green');
+var gem41 = new Gem ('blue');
+var gem42 = new Gem ('blue');
 
-var gem43 = new Gem ("green");
-var gem44 = new Gem ("blue");
-var gem45 = new Gem ("blue");
-var gem46 = new Gem ("red");
-var gem47 = new Gem ("blue");
-var gem48 = new Gem ("blue");
-var gem49 = new Gem ("green");
+var gem43 = new Gem ('green');
+var gem44 = new Gem ('blue');
+var gem45 = new Gem ('blue');
+var gem46 = new Gem ('red');
+var gem47 = new Gem ('blue');
+var gem48 = new Gem ('blue');
+var gem49 = new Gem ('green');
 
 function Board() { // Constructs a board of empty arrays that gem objects can be pushed into
   this.board = [[], [], [], [], [], [], []];
@@ -74,13 +74,13 @@ Board.prototype.genGem = function(max) {  // Creates gems randomly and pushes th
     for (var j = this.board[i].length; j < this.board.length; j++) {
       var number = Math.floor(Math.random() * (max + 1));
       if (number === 0) {
-        gem = new Gem("blue");
+        gem = new Gem('blue');
       } else if (number === 1) {
-        gem = new Gem("red");
+        gem = new Gem('red');
       } else if (number === 2) {
-        gem = new Gem("green");
+        gem = new Gem('green');
       } else if (number === 3) {
-        gem = new Gem("yellow");
+        gem = new Gem('yellow');
       }
       this.board[i].push(gem);
     }
@@ -152,68 +152,68 @@ Board.prototype.match = function () { //Loops through board and checks condition
     for (var j = start; j >= 0; j--) {
       if (i > 1 && i < start-1) {
         if (this.conditionA(i, j) || this.conditionB(i, j) || this.conditionC(i, j)) {
-          matches.add(i + "," + j);
+          matches.add(i + ',' + j);
           match = true;
         }
       }
       if (i === 1) {
 
         if (this.conditionB(i, j) || this.conditionC(i, j)) {
-          matches.add(i + "," + j);
+          matches.add(i + ',' + j);
           match = true;
         }
       }
       if (i === 0) {
 
         if (this.conditionC(i, j)) {
-          matches.add(i + "," + j);
+          matches.add(i + ',' + j);
           match = true;
         }
       }
       if (i === start - 1) {
 
         if (this.conditionA(i, j) || this.conditionB(i, j)) {
-          matches.add(i + "," + j);
+          matches.add(i + ',' + j);
           match = true;
         }
       }
       if (i === start) {
         if (this.conditionA(i, j)) {
-          matches.add(i + "," + j);
+          matches.add(i + ',' + j);
           match = true;
         }
       }
       if (j > 1 && j<start-1) {
 
         if (this.conditionD(i, j) || this.conditionE(i, j) || this.conditionF(i, j)) {
-          matches.add(i + "," + j);
+          matches.add(i + ',' + j);
           match = true;
         }
       }
       if (j === 1) {
 
         if (this.conditionE(i, j) || this.conditionF(i, j)) {
-          matches.add(i + "," + j);
+          matches.add(i + ',' + j);
           match = true;
         }
       }
       if (j === 0) {
 
         if (this.conditionF(i, j)) {
-          matches.add(i + "," + j);
+          matches.add(i + ',' + j);
           match = true;
         }
       }
       if (j === start - 1) {
 
         if (this.conditionD(i, j) || this.conditionE(i, j)) {
-          matches.add(i + "," + j);
+          matches.add(i + ',' + j);
           match = true;
         }
       }
       if (j === start) {
         if (this.conditionD(i, j)) {
-          matches.add(i + "," + j);
+          matches.add(i + ',' + j);
           match = true;
         }
       }
@@ -240,7 +240,7 @@ Board.prototype.clearGems = function () { //changes any gems that match at least
   matches.forEach(function(item) {
     var coordinates=item.split(',');
     newScore += thisBoard[parseInt(coordinates[0])][parseInt(coordinates[1])].pointVal;
-    thisBoard[parseInt(coordinates[0])][parseInt(coordinates[1])] = "burst";
+    thisBoard[parseInt(coordinates[0])][parseInt(coordinates[1])] = 'burst';
   });
   this.board = thisBoard;
 };
@@ -281,16 +281,16 @@ Board.prototype.startBoard = function () { //sets up a randomly generated board 
 function scoreTicker() {  //make score count up by 5 and animates DOM score using timeouts
   if(currentScore < newScore) {
     currentScore += 5;
-    $("#game-score").text(currentScore);
+    $('#game-score').text(currentScore);
     setTimeout(scoreTicker, 25);
   }
 }
 
 function drawHelper(board, i, j) { //draws gems into the html board
   var cellID = '#' + i + '-' + j;
-  if (typeof(board.board[i][j]) === "undefined"){
+  if (typeof(board.board[i][j]) === 'undefined'){
     return;
-  } else if(board.board[i][j] === "burst"){
+  } else if(board.board[i][j] === 'burst'){
     $(cellID).empty().append('<img src="img/burst.gif">');
   } else if (board.board[i][j].type === 'blue') {
     $(cellID).empty().append('<img src="img/blue.svg">');
@@ -309,7 +309,7 @@ function drawClear(board) { // draws board and updates score with no timeout
       drawHelper(board, i, j);
     }
   }
-  $("#game-score").text(scoreTicker());
+  $('#game-score').text(scoreTicker());
 }
 
 function drawNewGems(board, i = -1, j = -1) { //draws board with timeouts to let things look like they're animated
@@ -342,8 +342,8 @@ $(document).ready(function() {
     // checks to see if user has selected a gem. It assigns a class of no-click to gems that aren't directly adjacent
     if (coordArray.length === 0) {
       coordArray.push(xCoord,yCoord);
-      $(".cell").addClass("no-click");
-      $(this).addClass("highlight");
+      $('.cell').addClass('no-click');
+      $(this).addClass('highlight');
       $('[id='+ xCoord + '-' + (yCoord + 1) + ']').addClass('highlight').removeClass('no-click');
       $('[id='+ xCoord + '-' + (yCoord - 1) + ']').addClass('highlight').removeClass('no-click');
       $('[id='+ (xCoord + 1) + '-' + yCoord + ']').addClass('highlight').removeClass('no-click');
@@ -361,8 +361,8 @@ $(document).ready(function() {
       }
       // resets click functionality to board for next turn
       coordArray=[];
-      $(".cell").removeClass("highlight");
-      $(".cell").removeClass("no-click");
+      $('.cell').removeClass('highlight');
+      $('.cell').removeClass('no-click');
     }
   });
   // generates a new random board and resets score
@@ -370,6 +370,6 @@ $(document).ready(function() {
     newBoard = new Board();
     newBoard.startBoard();
     drawClear(newBoard);
-    $("#game-score").text(currentScore);
+    $('#game-score').text(currentScore);
   });
 });
