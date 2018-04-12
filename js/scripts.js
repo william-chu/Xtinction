@@ -64,11 +64,11 @@ var gem47 = new Gem ("blue");
 var gem48 = new Gem ("blue");
 var gem49 = new Gem ("green");
 
-function Board() {
+function Board() { // Constructs a board of empty arrays that gem objects can be pushed into
   this.board = [[], [], [], [], [], [], []];
 }
 
-Board.prototype.genGem = function(max) {
+Board.prototype.genGem = function(max) {  // Creates gems and pushes them into a board
   var gem;
   for (var i = 0; i < this.board.length; i++) {
     for (var j = this.board[i].length; j < this.board.length; j++) {
@@ -87,7 +87,7 @@ Board.prototype.genGem = function(max) {
   }
 };
 
-Board.prototype.swapGems = function (coordArray) {
+Board.prototype.swapGems = function (coordArray) {  //Swaps the values of gems selected using their coordinates in the board
   var gem1Type = this.board[coordArray[0]][coordArray[1]].type;
   var gem1Pts = this.board[coordArray[0]][coordArray[1]].pointVal;
   this.board[coordArray[0]][coordArray[1]].type = this.board[coordArray[2]][coordArray[3]].type;
@@ -96,7 +96,7 @@ Board.prototype.swapGems = function (coordArray) {
   this.board[coordArray[2]][coordArray[3]].pointVal = gem1Pts;
 };
 
-Board.prototype.conditionA = function (i, j) {
+Board.prototype.conditionA = function (i, j) { // checks to see if a gem matches the two gems below it
   if (this.board[i][j].type === this.board[i - 1][j].type && this.board[i][j].type === this.board[i - 2][j].type) {
     return true;
   } else {
@@ -104,7 +104,7 @@ Board.prototype.conditionA = function (i, j) {
   }
 };
 
-Board.prototype.conditionB = function (i, j) {
+Board.prototype.conditionB = function (i, j) { // checks to see if a gem matches the two gems  1 above and 1 below it
   if (this.board[i][j].type === this.board[i - 1][j].type && this.board[i][j].type === this.board[i + 1][j].type) {
     return true;
   } else {
@@ -112,7 +112,7 @@ Board.prototype.conditionB = function (i, j) {
   }
 };
 
-Board.prototype.conditionC = function (i, j) {
+Board.prototype.conditionC = function (i, j) { // checks to see if a gem matches the two gems above it
   if (this.board[i][j].type === this.board[i + 1][j].type && this.board[i][j].type === this.board[i + 2][j].type) {
     return true;
   } else {
@@ -120,7 +120,7 @@ Board.prototype.conditionC = function (i, j) {
   }
 };
 
-Board.prototype.conditionD = function (i, j) {
+Board.prototype.conditionD = function (i, j) { // checks to see if a gem matches the two gems to its left
   if (this.board[i][j].type === this.board[i][j - 1].type && this.board[i][j].type === this.board[i][j - 2].type) {
     return true;
   } else {
@@ -128,7 +128,7 @@ Board.prototype.conditionD = function (i, j) {
   }
 };
 
-Board.prototype.conditionE = function (i, j) {
+Board.prototype.conditionE = function (i, j) { //checks to see if a gem matches the two gems 1 to its left and 1 to its right
   if (this.board[i][j].type === this.board[i][j - 1].type && this.board[i][j].type === this.board[i][j + 1].type) {
     return true;
   } else {
@@ -136,7 +136,7 @@ Board.prototype.conditionE = function (i, j) {
   }
 };
 
-Board.prototype.conditionF = function (i, j) {
+Board.prototype.conditionF = function (i, j) { //checks to see if a gem matches the two gems to its right
   if (this.board[i][j].type === this.board[i][j + 1].type && this.board[i][j].type === this.board[i][j + 2].type) {
     return true;
   } else {
@@ -144,7 +144,7 @@ Board.prototype.conditionF = function (i, j) {
   }
 };
 
-Board.prototype.match = function () {
+Board.prototype.match = function () { //Loops through board and checks conditions A-F
   matches = new Set();
   var start = this.board.length-1;
   var match = false;
@@ -222,7 +222,7 @@ Board.prototype.match = function () {
   return match;
 };
 
-Board.prototype.isValid = function (coordArray) {
+Board.prototype.isValid = function (coordArray) { //checks to see if the gems selected cause a match (a valid move)
   var tempBoard = new Board();
 
   for (var i = 0; i < this.board.length; i++) {
@@ -235,7 +235,7 @@ Board.prototype.isValid = function (coordArray) {
   return tempBoard.match();
 };
 
-Board.prototype.clearGems = function () {
+Board.prototype.clearGems = function () { //changes any gems that match at least 3 in a row up or down into explosions
   var thisBoard = this.board;
   matches.forEach(function(item) {
     var coordinates=item.split(',');
@@ -245,7 +245,7 @@ Board.prototype.clearGems = function () {
   this.board = thisBoard;
 };
 
-Board.prototype.removeBursts= function () {
+Board.prototype.removeBursts= function () { //clears exploded gems
   var thisBoard = this.board;
   matches.forEach(function(item) {
     var coordinates=item.split(',');
@@ -254,7 +254,7 @@ Board.prototype.removeBursts= function () {
   this.board = thisBoard;
 };
 
-Board.prototype.checkBoard = function () {
+Board.prototype.checkBoard = function () { //checks to see if new matches were made when new gems were populated, then clears them
   if(this.match()) {
     this.clearGems();
     drawClear(this);
@@ -266,7 +266,7 @@ Board.prototype.checkBoard = function () {
   }
 };
 
-Board.prototype.startBoard = function () {
+Board.prototype.startBoard = function () { //sets up a randomly generated board and removes matches before displaying
   this.genGem(3);
   while (this.match()) {
     this.clearGems();
@@ -278,7 +278,7 @@ Board.prototype.startBoard = function () {
 };
 
 // User Interface Logic
-function scoreTicker() {
+function scoreTicker() {  //make score count up by 5
   if(currentScore < newScore) {
     currentScore += 5;
     $("#game-score").text(currentScore);
@@ -286,23 +286,27 @@ function scoreTicker() {
   }
 }
 
-function drawClear(board) {
+function drawHelper(board, i, j) {
+  var cellID = '#' + i + '-' + j;
+  if (typeof(board.board[i][j]) === "undefined"){
+    return;
+  } else if(board.board[i][j] === "burst"){
+    $(cellID).empty().append('<img src="img/burst.gif">');
+  } else if (board.board[i][j].type === 'blue') {
+    $(cellID).empty().append('<img src="img/blue.svg">');
+  } else if (board.board[i][j].type === 'red') {
+    $(cellID).empty().append('<img src="img/red.svg">');
+  } else if (board.board[i][j].type === 'green') {
+    $(cellID).empty().append('<img src="img/green.svg">');
+  } else if (board.board[i][j].type === 'yellow') {
+    $(cellID).empty().append('<img src="img/yellow.svg">');
+  }
+}
+
+function drawClear(board) { //
   for (var i = 0; i < board.board.length; i++) {
     for (var j = 0; j < board.board.length; j++) {
-      var cellID = '#' + i + '-' + j;
-      if (typeof(board.board[i][j]) === "undefined"){
-        return;
-      } else if(board.board[i][j] === "burst"){
-        $(cellID).empty().append('<img src="img/burst.gif">');
-      } else if (board.board[i][j].type === 'blue') {
-        $(cellID).empty().append('<img src="img/blue.svg">');
-      } else if (board.board[i][j].type === 'red') {
-        $(cellID).empty().append('<img src="img/red.svg">');
-      } else if (board.board[i][j].type === 'green') {
-        $(cellID).empty().append('<img src="img/green.svg">');
-      } else if (board.board[i][j].type === 'yellow') {
-        $(cellID).empty().append('<img src="img/yellow.svg">');
-      }
+      drawHelper(board, i, j);
     }
   }
   $("#game-score").text(scoreTicker());
@@ -315,20 +319,7 @@ function drawNewGems(board, i = -1, j = -1) {
     }, 700);
   } else if (i < board.board.length) {
     if (j < board.board.length){
-      var cellID = '#' + i + '-' + j;
-      if (typeof(board.board[i][j]) === "undefined"){
-        return;
-      } else if(board.board[i][j] === "burst"){
-        $(cellID).empty().append('<img src="img/burst.gif">');
-      } else if (board.board[i][j].type === 'blue') {
-        $(cellID).empty().append('<img src="img/blue.svg">');
-      } else if (board.board[i][j].type === 'red') {
-        $(cellID).empty().append('<img src="img/red.svg">');
-      } else if (board.board[i][j].type === 'green') {
-        $(cellID).empty().append('<img src="img/green.svg">');
-      } else if (board.board[i][j].type === 'yellow') {
-        $(cellID).empty().append('<img src="img/yellow.svg">');
-      }
+      drawHelper(board, i, j);
       setTimeout(function() {
         drawNewGems(board, i, j+1);
       }, 200*(1/(j+1)));
