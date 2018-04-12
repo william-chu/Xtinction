@@ -4,7 +4,7 @@
 
 ## Description
 
-A clone of Bejeweled, the popular game. Re-skinned with dinosaurs.
+A clone of Bejeweled, the popular game. Re-skinned with dinosaurs. See original here: https://github.com/william-chu/Bedazzzled
 
 ## Specifications
 
