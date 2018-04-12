@@ -286,7 +286,7 @@ function scoreTicker() {  //make score count up by 5
   }
 }
 
-function drawHelper(board, i, j) {
+function drawHelper(board, i, j) { //draws gems into the html board
   var cellID = '#' + i + '-' + j;
   if (typeof(board.board[i][j]) === "undefined"){
     return;
@@ -303,7 +303,7 @@ function drawHelper(board, i, j) {
   }
 }
 
-function drawClear(board) { //
+function drawClear(board) { // draws board and updates score
   for (var i = 0; i < board.board.length; i++) {
     for (var j = 0; j < board.board.length; j++) {
       drawHelper(board, i, j);
@@ -312,7 +312,7 @@ function drawClear(board) { //
   $("#game-score").text(scoreTicker());
 }
 
-function drawNewGems(board, i = -1, j = -1) {
+function drawNewGems(board, i = -1, j = -1) { //draws board with timeouts to let things look like they're animated
   if (i === -1 && j === -1) {
     setTimeout(function() {
       drawNewGems(board, 0, 0);
@@ -334,11 +334,13 @@ $(document).ready(function() {
   newBoard.board = [[gem1, gem2, gem3, gem4, gem5, gem6, gem7], [gem8, gem9, gem10, gem11, gem12, gem13, gem14], [gem15, gem16, gem17, gem18, gem19, gem20, gem21], [gem22, gem23, gem24, gem25, gem26, gem27, gem28], [gem29, gem30, gem31, gem32, gem33, gem34, gem35], [gem36, gem37, gem38, gem39, gem40, gem41, gem42], [gem43, gem44, gem45, gem46, gem47, gem48, gem49]];
   // newBoard.startBoard();
   drawClear(newBoard);
+  // gathers coordinates of clicked gems and pushes coordinates into an array
   $('.cell').click(function() {
     var userClick = $(this).attr('id');
     var gemCoords = userClick.split('-');
     var xCoord = parseInt(gemCoords[0]);
     var yCoord = parseInt(gemCoords[1]);
+    // checks to see if user has selected a gem. It assigns a class of no-click to gems that aren't directly adjacent
     if (coordArray.length === 0) {
       coordArray.push(xCoord,yCoord);
       $(".cell").addClass("no-click");
@@ -348,23 +350,24 @@ $(document).ready(function() {
       $("[id="+ (xCoord + 1) + "-" + yCoord + "]").addClass('highlight').removeClass("no-click");
       $("[id="+ (xCoord - 1) + "-" + yCoord + "]").addClass('highlight').removeClass("no-click");
     } else {
+      /* checks to see if there's a second click, and checks to see if move is valid. If so, it runs the match func and clears
+      the appropriate gems */
       coordArray.push(xCoord,yCoord);
       if (newBoard.isValid(coordArray)) {
-        // debugger;
         newBoard.swapGems(coordArray);
         drawClear(newBoard);
         newBoard.checkBoard();
       } else {
         //nothing
       }
+      // resets click functionality to board for next turn
       coordArray=[];
       $(".cell").removeClass("highlight");
       $(".cell").removeClass("no-click");
     }
   });
-
+  // generates a new random board and resets score
   $('.btn').click(function(){
-    debugger;
     newBoard = new Board();
     newBoard.startBoard();
     drawClear(newBoard);
