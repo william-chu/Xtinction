@@ -4,7 +4,7 @@
 
 ## Description
 
-A clone of Bejeweled, the popular game. Re-skinned with dinosaurs. See original here: https://github.com/william-chu/Bedazzzled
+A clone of Bejeweled, the popular game. Re-skinned with dinosaurs. See original here: https://github.com/william-chu/epicodus-week5/
 
 ## Specifications
 
@@ -20,8 +20,8 @@ A clone of Bejeweled, the popular game. Re-skinned with dinosaurs. See original 
 
 ## Setup/Installation Requirements
 
-* To view project code, _clone repository from_ https://github.com/william-chu/Xtinction/
-* To view project, _open in web browser_ https://william-chu.github.io/Xtinction/
+* To view project code, _clone repository from_ https://github.com/william-chu/epicodus-week5-reskin/
+* To view project, _open in web browser_ https://william-chu.github.io/epicodus-week5-reskin/
 
 ## Known Bugs
 
