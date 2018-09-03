@@ -1,5 +1,6 @@
 html {
   box-sizing: border-box;
+  height: 100%;
 }
 
 *, *:before, *:after {
@@ -19,7 +20,7 @@ table {
   width: 650px;
   border-collapse: separate;
   border-radius: 5px;
-  margin: 8% auto 10% auto;
+  margin: 30px auto;
   text-align: center;
   border: 6px solid rgb(239, 228, 127, 0.5);
   box-shadow: 0px 0px 37px -9px rgba(219,206,24,1);
@@ -67,7 +68,6 @@ img {
 }
 
 h1 {
-  margin-top: 6%;
   color: #efe47f;
   font-size: 80px;
   text-align: center;
